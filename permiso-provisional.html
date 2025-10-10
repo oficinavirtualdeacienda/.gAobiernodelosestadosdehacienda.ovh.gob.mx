@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERIFICACIÓN DE PERMISOS - Gobiernos de los estados unidos mexicanos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .url-bar {
+            background-color: #e8e8e8;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #666;
+            flex: 1;
+            max-width: 300px;
+            margin: 0 20px;
+        }
+
+        .mobile-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: calc(100vh - 60px);
+            position: relative;
+        }
+
+        .top-section {
+            padding: 20px;
+            background-color: white;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 80px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        .menu-btn {
+            width: 50px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-btn div {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 200px;
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: #a53c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #8a2e2e;
+        }
+
+        .certificate-badge {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .badge.valid {
+            background-color: #3498db;
+        }
+
+        .badge.invalid {
+            background-color: #e74c3c;
+        }
+
+        .badge::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #ddd;
+        }
+
+        .badge.valid::after {
+            border-top-color: #3498db;
+        }
+
+        .badge.invalid::after {
+            border-top-color: #e74c3c;
+        }
+
+        .permit-details {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .permit-details.show {
+            display: block;
+        }
+
+        .permit-details h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+
+        .permit-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .vehicle-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .vehicle-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .separator {
+            height: 20px;
+            background: linear-gradient(to right, #ccc 0%, #ccc 100%);
+            margin: 20px 0;
+        }
+
+        .footer {
+            background-color: #a53c3c;
+            color: white;
+            padding: 30px 20px;
+            margin-top: auto;
+        }
+
+        .footer h2 {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .footer p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links .separator {
+            color: white;
+            height: auto;
+            background: none;
+            margin: 0;
+        }
+
+        .bottom-bar {
+            height: 4px;
+            background-color: #666;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .title h1 {
+                font-size: 24px;
+            }
+            
+            .container {
+                margin: 0;
+            }
+            
+            .permit-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="mobile-icons">
+            <span>🏠</span>
+        </div>
+        <div class="url-bar">https://gobiernodetransitonacional.gob.mx</div>
+        <div class="mobile-icons">
+            <span>+</span>
+            <span>📱</span>
+            <span>⋮</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="top-section">
+            <div class="logo-section">
+                <div class="logo">
+                    <!-- Reemplaza con tu URL de imagen del logo -->
+                    <img src="https://images.seeklogo.com/logo-png/4/1/escudo-nacional-mexicano-logo-png_seeklogo-48977.png" alt="Huitzuco Logo" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Huitzuco<br>2024-2027';">
+                </div>
+                <div class="menu-btn" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="index.html" class="dropdown-item">INICIO</a>
+                        <a href="#" class="dropdown-item">AVISOS DE GOBIERNO</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">
+                <h1 id="main-title">Ingresa tu número de folio para verificar tu permiso provisional</h1>
+            </div>
+
+            <div class="search-section">
+                <form class="search-form" id="search-form">
+                    <input type="text" class="search-input" id="folio-input" placeholder="Número de folio" required>
+                    <button type="submit" class="search-button">Verificar</button>
+                </form>
+            </div>
+
+            <div class="certificate-badge">
+                <div class="badge" id="certificate-badge">
+                    <!-- Reemplaza con tu URL de imagen del certificado -->
+                    <img src="https://i.pinimg.com/736x/87/26/2d/87262d46a57cd8c4df716defeb66ecce.jpg" alt="Certificado" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none'; this.parentElement.innerHTML='✓<br>Certificado';">
+                </div>
+            </div>
+
+            <div class="error-message" id="error-message">
+                Folio no encontrado. Por favor, verifica el número e intenta nuevamente.
+            </div>
+
+            <div class="permit-details" id="permit-details">
+                <h2>Permiso válido por esta dependencia</h2>
+                
+                <div class="permit-info">
+                    <div class="info-item">
+                        <div class="info-label">FOLIO</div>
+                        <div class="info-value" id="folio-value">ABC123456</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">TIPO DE PERMISO</div>
+                        <div class="info-value" id="permit-type">Permiso vehicular</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">FECHA DE INGRESO</div>
+                        <div class="info-value" id="start-date">15/03/2024</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">FECHA DE TERMINACIÓN</div>
+                        <div class="info-value" id="end-date">15/03/2025</div>
+                    </div>
+                </div>
+                
+                <div class="vehicle-section">
+                    <h3>Datos del Vehículo</h3>
+                    <div class="permit-info">
+                        <div class="info-item">
+                            <div class="info-label">MARCA</div>
+                            <div class="info-value" id="vehicle-brand">Nissan</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">MODELO</div>
+                            <div class="info-value" id="vehicle-model">Versa</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">AÑO</div>
+                            <div class="info-value" id="vehicle-year">2022</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">COLOR</div>
+                            <div class="info-value" id="vehicle-color">Blanco</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Folio</div>
+                            <div class="info-value" id="vehicle-folio">NUM YA ASIGNADO</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">NÚMERO DE SERIE</div>
+                            <div class="info-value" id="vehicle-serial">1N4BL24VXVC123456</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">NÚMERO DE MOTOR</div>
+                            <div class="info-value" id="vehicle-motor">1N4BL24VXVC123456</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">PROPIETARIO</div>
+                            <div class="info-value" id="vehicle-owner">Juan Pérez Hernández</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="footer">
+            <h2>2024-2027 Gobernacion Nacional de Mexico</h2>
+            
+            <p>Portal web de la dirección de tránsito y vialidad pública de los Estados de Mexico. En este portal podrás verificar la vigencia y autenticidad de los permisos y licencias expedidas por los Estados de la Republica Mexicana. Infórmate sobre los diferentes trámites que se pueden realizar para la expedición de permisos vehiculares y licencias de conducir.</p>
+            
+            <div class="footer-links">
+                <a href="#">Política de privacidad</a>
+                <span class="separator">|</span>
+                <a href="#">Términos y condiciones</a>
+            </div>
+            
+            <div class="bottom-bar"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+// Base de datos simulada con múltiples permisos
+const permisosDatabase = {
+    "ML-JA-6172": {
+        type: "Permiso Provisional para Circular sin Placas por 30 dias.",
+        startDate: "30/09/2025",
+        endDate: "30/10/2025",
+        vehicle: {
+            brand: "CARABELA",
+            model: "GATOR SPORT 125",
+            year: "2025",
+            color: "PLATA",
+            folio: "ML-JA-6172",
+            serial: "3EFBBLAUXS1018543",
+            motor: "HECHO EN MEXICO",
+            owner: "JORGE STWAR ARENALES ROMERO"
+        }
+    },
+    "SP-VP-6170": {
+        type: "Permiso Provisional para Circular sin Placas por 30 dias",
+        startDate: "30/09/2025",
+        endDate: "30/10/2025",
+        vehicle: {
+            brand: "ITALIKA",
+            model: "ZW125",
+            year: "2020",
+            color: "AZUL/NEGRO",
+            folio: "SP-VP-6170",
+            serial: "3SCPZWDE8L1017601",
+            motor: "HECHO EN MEXICO",
+            owner: "VALENTIN PEREZ RAMIREZ"
+        }
+    },
+    "XYZ789012": {
+        type: "Permiso de transporte público",
+        startDate: "01/01/2024",
+        endDate: "31/12/2024",
+        vehicle: {
+            brand: "Toyota",
+            model: "Corolla",
+            year: "2020",
+            color: "Gris",
+            folio: "XYZ789012",
+            serial: "2T1BU4EE6CC123456",
+            motor: "2T1BU4EE6CC123456",
+            owner: "María González López"
+        }
+    },
+    "DEF456789": {
+        type: "Permiso para carga pesada",
+        startDate: "10/05/2024",
+        endDate: "10/05/2025",
+        vehicle: {
+            brand: "Volvo",
+            model: "FH16",
+            year: "2023",
+            color: "Azul",
+            folio: "DEF456789",
+            serial: "YV2E4C3A0JB123456",
+            motor: "D13K460",
+            owner: "Transportes del Norte S.A. de C.V."
+        }
+    },
+        "EM-ML-4312": {
+        type: "Permiso provisional por 30 dias para el estado de Morelos.",
+        startDate: "03/10/2025",
+        endDate: "03/11/2025",
+        vehicle: {
+            brand: "VOLKSWAGEN",
+            model: "T CROSS",
+            year: "2025",
+            color: "GRIS",
+            folio: "EM-ML-4312",
+            serial: "9BWBL6BF3L4041892",
+            motor: "HECHO EN MEXICO",
+            owner: "EDUARDO MEZA URIBE"
+        }
+    }
+};
+
+function toggleMenu() {
+    const dropdown = document.getElementById('dropdownMenu');
+    dropdown.classList.toggle('show');
+}
+
+// Cerrar el menú si se hace clic fuera de él
+document.addEventListener('click', function(event) {
+    const menuBtn = document.querySelector('.menu-btn');
+    const dropdown = document.getElementById('dropdownMenu');
+    
+    if (!menuBtn.contains(event.target)) {
+        dropdown.classList.remove('show');
+    }
+});
+
+// Manejar la búsqueda de folio
+document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const folio = document.getElementById('folio-input').value.trim();
+    const badge = document.getElementById('certificate-badge');
+    const permitDetails = document.getElementById('permit-details');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Ocultar mensajes previos
+    permitDetails.classList.remove('show');
+    errorMessage.classList.remove('show');
+    
+    // Resetear badge
+    badge.classList.remove('valid', 'invalid');
+    
+    if (folio) {
+        // Buscar en la base de datos
+        const permitData = permisosDatabase[folio];
+        
+        if (permitData) {
+            // Folio encontrado
+            document.getElementById('main-title').textContent = 'Permiso válido por esta dependencia';
+            
+            // Actualizar el folio en los detalles
+            document.getElementById('folio-value').textContent = folio;
+            
+            // Cambiar la palomita a azul (válido)
+            badge.classList.add('valid');
+            
+            // Actualizar datos del permiso
+            document.getElementById('permit-type').textContent = permitData.type;
+            document.getElementById('start-date').textContent = permitData.startDate;
+            document.getElementById('end-date').textContent = permitData.endDate;
+            
+            // Actualizar datos del vehículo
+            document.getElementById('vehicle-brand').textContent = permitData.vehicle.brand;
+            document.getElementById('vehicle-model').textContent = permitData.vehicle.model;
+            document.getElementById('vehicle-year').textContent = permitData.vehicle.year;
+            document.getElementById('vehicle-color').textContent = permitData.vehicle.color;
+            document.getElementById('vehicle-folio').textContent = permitData.vehicle.folio;
+            document.getElementById('vehicle-serial').textContent = permitData.vehicle.serial;
+            document.getElementById('vehicle-motor').textContent = permitData.vehicle.motor;
+            document.getElementById('vehicle-owner').textContent = permitData.vehicle.owner;
+            
+            // Mostrar los detalles del permiso
+            permitDetails.classList.add('show');
+        } else {
+            // Folio no encontrado
+            document.getElementById('main-title').textContent = 'Folio no encontrado';
+            
+            // Cambiar la palomita a rojo (inválido)
+            badge.classList.add('invalid');
+            
+            // Mostrar mensaje de error
+            errorMessage.classList.add('show');
+        }
+    }
+});
+</script>
+
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina Virtual de Hacienda | OVH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Superior */
+        .top-header {
+            background: linear-gradient(135deg, #DC143C 0%, #B22222 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-header a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Header Principal */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .site-title {
+            border-left: 3px solid #DC143C;
+            padding-left: 15px;
+        }
+
+        .site-title h1 {
+            font-size: 20px;
+            color: #DC143C;
+            font-weight: bold;
+        }
+
+        .site-title p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Navegación */
+        nav {
+            background: #DC143C;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #DC143C 0%, #B22222 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Servicios */
+        .services {
+            padding: 60px 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #DC143C;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .service-card h3 {
+            color: #DC143C;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Botón */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: #DC143C;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #F4D03F 0%, #D4AF37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Información */
+        .info-section {
+            padding: 60px 20px;
+            background: white;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            padding: 25px;
+            background: #f9f9f9;
+            border-left: 4px solid #D4AF37;
+            border-radius: 5px;
+        }
+
+        .info-card h3 {
+            color: #DC143C;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #666;
+        }
+
+        .info-card li:before {
+            content: "▸ ";
+            color: #D4AF37;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #D4AF37;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-section {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .site-title {
+                border-left: none;
+                border-top: 3px solid #DC143C;
+                padding-left: 0;
+                padding-top: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            nav li {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-header .container {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .site-title h1 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Superior -->
+    <div class="top-header">
+        <div class="container">
+            <div>
+                <span>📞 800 715 4350 | ✉️ atencion@ovh.gob.mx</span>
+            </div>
+          
+        </div>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo-section">
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#DC143C"/>
+                    <circle cx="50" cy="35" r="15" fill="#D4AF37"/>
+                    <path d="M 30 50 Q 50 70 70 50" stroke="#D4AF37" stroke-width="3" fill="none"/>
+                    <text x="50" y="85" font-size="14" fill="white" text-anchor="middle" font-weight="bold">OVH</text>
+                </svg>
+                <div class="site-title">
+                    <h1>Oficina Virtual de Hacienda</h1>
+                    <p>Verifica tu permiso y Licencia</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- Hero -->
+    <section class="hero">
+        <h2>Bienvenido a la Oficina Virtual de Hacienda</h2>
+        <p>Verifica el tramite de tu permiso provisional y tu licencia de conducir</p>
+    </section>
+
+   <!-- Servicios -->
+<section class="services">
+    <div class="container">
+        <h2 class="section-title">Servicios en Línea</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📄</div>
+                <h3>Verifica tu Permiso Provisional</h3>
+                <p>Consulta con tu numero de folio tu permiso provisional para circular</p>
+                <button class="btn" onclick="window.location.href='permiso-provisional.html'">Acceder</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💳</div>
+                <h3>Verifica tu licencia de conducir</h3>
+                <p>Consulta con tu numero de folio tu licencia de conducir</p>
+                <button class="btn" onclick="window.location.href='licencia-conducir.html'">Acceder</button>
+            </div>
+        </div>
+    </div>
+</section>
+                
+              
+            </div>
+        </div>
+    </section>
+
+    <!-- Información -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">Información Importante</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Avisos</h3>
+                    <ul>
+                        <li>Campaña de regularización vehicular 2025</li>
+                        <li>Nuevas formas de pago disponibles</li>
+                        <li>Descuentos por pronto pago</li>
+                        <li>Actualización de normatividad</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Requisitos</h3>
+                    <ul>
+                        <li>Identificación oficial vigente</li>
+                        <li>Comprobante de domicilio</li>
+                        <li>RFC actualizado</li>
+                        <li>Documentos del vehículo</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Atención Ciudadana</h3>
+                    <ul>
+                        <li>Horario: Lunes a Viernes 8:00 - 16:00</li>
+                        <li>Teléfono: 800 715 4350</li>
+                        <li>Chat en línea disponible</li>
+                        <li>Soporte técnico 24/7</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Oficina Virtual de Hacienda</h3>
+                <p>Secretaría de Finanzas y Planeación<br>
+               </p>
+            </div>
+           
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Teléfono: 800 715 4350<br>
+                Email: atencion@ovh.gob.mx<br>
+                Horario: Lunes a Viernes<br>
+                8:00 - 16:00 hrs</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 www.ovh.gob.mx Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
