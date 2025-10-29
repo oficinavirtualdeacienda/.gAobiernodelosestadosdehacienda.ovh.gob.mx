@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Tarjetas de Circulación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            background: #fff;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .car-icon {
+            width: 50px;
+            height: 50px;
+            background: #2c3e50;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .header-text h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #fff;
+        }
+
+        .step {
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .step.active {
+            background: #4a1e3a;
+            color: white;
+        }
+
+        .step.inactive {
+            background: #7ba3d4;
+            color: white;
+        }
+
+        .step-number {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .form-section {
+            background: #e8e8e8;
+            padding: 40px;
+        }
+
+        .info-section {
+            background: #fff;
+            padding: 40px;
+            border-left: 1px solid #ddd;
+        }
+
+        .required-note {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .help-icon {
+            position: absolute;
+            right: 12px;
+            top: 42px;
+            width: 24px;
+            height: 24px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .help-icon:hover {
+            background: #2980b9;
+        }
+
+        .submit-btn {
+            background: #7ba3d4;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #6691c2;
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .info-text {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .important-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .important-box strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .note-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .note-box strong {
+            color: #2980b9;
+        }
+
+        .example-card {
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .example-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Modal de resultados */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+
+        .result-title {
+            color: #27ae60;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-title.invalid {
+            color: #e74c3c;
+        }
+
+        .result-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .result-value {
+            color: #495057;
+        }
+
+        .success-icon {
+            text-align: center;
+            font-size: 3rem;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        .error-icon {
+            text-align: center;
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 968px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .header-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .form-section,
+            .info-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .car-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .header-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .header-text p {
+                font-size: 0.8rem;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            width: 250px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="car-icon">🚗</div>
+            <div class="header-text">
+                <h1>Validación de autenticidad Tarjetas de Circulación</h1>
+                <p>Trámites en línea de Control Vehicular</p>
+            </div>
+        </div>
+
+        <div class="steps">
+            <div class="step active">
+                <div class="step-number">Paso 1</div>
+                <div class="step-label">Registrar datos</div>
+            </div>
+            <div class="step inactive">
+                <div class="step-number">Paso 2</div>
+                <div class="step-label">Consulta de Información</div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="form-section">
+                <p class="required-note">Los datos marcados con * son obligatorios.</p>
+
+                <form id="validationForm">
+                    <div class="form-group">
+                        <label>Placa: <span class="required">*</span></label>
+                        <input type="text" id="placa" required placeholder="Ingrese la placa">
+                        <div class="help-icon" data-tooltip="placa">?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Número de Serie o NIV: <span class="required">*</span></label>
+                        <input type="text" id="serie" required placeholder="Ingrese el número de serie">
+                        <div class="help-icon" data-tooltip="serie">?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RFC: <span class="required">*</span></label>
+                        <input type="text" id="rfc" required placeholder="Ingrese el RFC" maxlength="13">
+                        <div class="help-icon" data-tooltip="rfc">?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado: <span class="required">*</span></label>
+                        <select id="estado" required>
+                            <option value="">SELECCIONE UN ESTADO</option>
+                            <option value="AGU">Aguascalientes</option>
+                            <option value="BCN">Baja California</option>
+                            <option value="BCS">Baja California Sur</option>
+                            <option value="CAM">Campeche</option>
+                            <option value="CHP">Chiapas</option>
+                            <option value="CHH">Chihuahua</option>
+                            <option value="CMX">Ciudad de México</option>
+                            <option value="COA">Coahuila</option>
+                            <option value="COL">Colima</option>
+                            <option value="DUR">Durango</option>
+                            <option value="GUA">Guanajuato</option>
+                            <option value="GRO">Guerrero</option>
+                            <option value="HID">Hidalgo</option>
+                            <option value="JAL">Jalisco</option>
+                            <option value="MEX">Estado de México</option>
+                            <option value="MIC">Michoacán</option>
+                            <option value="MOR">Morelos</option>
+                            <option value="NAY">Nayarit</option>
+                            <option value="NLE">Nuevo León</option>
+                            <option value="OAX">Oaxaca</option>
+                            <option value="PUE">Puebla</option>
+                            <option value="QUE">Querétaro</option>
+                            <option value="ROO">Quintana Roo</option>
+                            <option value="SLP">San Luis Potosí</option>
+                            <option value="SIN">Sinaloa</option>
+                            <option value="SON">Sonora</option>
+                            <option value="TAB">Tabasco</option>
+                            <option value="TAM">Tamaulipas</option>
+                            <option value="TLA">Tlaxcala</option>
+                            <option value="VER">Veracruz</option>
+                            <option value="YUC">Yucatán</option>
+                            <option value="ZAC">Zacatecas</option>
+                        </select>
+                        <div class="help-icon" data-tooltip="estado">?</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Validar Tarjeta</button>
+                </form>
+            </div>
+
+            <div class="info-section">
+                <h2 class="info-title">Descripción</h2>
+                <p class="info-text">
+                    Ofrece la posibilidad de comprobar la veracidad e integridad del documento que obra en su poder, facilitado previamente por la Secretaría de Finanzas del Gobierno del Estado.
+                </p>
+
+                <div class="important-box">
+                    <strong>IMPORTANTE:</strong> Consulta válida solo para las tarjetas expedidas a partir del año 2011
+                </div>
+
+                <div class="note-box">
+                    <strong>Estimado contribuyente:</strong> favor de ingresar los datos <span style="color: #e91e63;">idénticos</span> a los contenidos en su tarjeta de circulación física, como se muestra en la imagen.
+                </div>
+
+                <div class="example-card">
+                    <img src="https://tramites.cdmx.gob.mx/tarjeta-circulacion/public/images/tc-nueva.png" alt="Ejemplo Tarjeta de Circulación" id="exampleImage" onerror="this.style.display='none'; document.getElementById('imageError').style.display='block';">
+                    <div id="imageError" style="display: none; padding: 20px; text-align: center; color: #666;">
+                        <p>⚠️ Imagen no disponible</p>
+                        <p style="font-size: 0.85rem; margin-top: 10px;">Por favor, actualiza la URL de la imagen en el código</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de resultados -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="success-icon" id="resultIcon">✅</div>
+            <h2 class="result-title" id="resultTitle">¡Tarjeta de Circulación Válida!</h2>
+            <p id="resultMessage">Su tarjeta de circulación ha sido verificada y es válida.</p>
+            
+            <div class="result-details" id="resultDetails">
+                <div class="result-item">
+                    <span class="result-label">Nombre del Propietario:</span>
+                    <span class="result-value" id="resultNombre">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">RFC:</span>
+                    <span class="result-value" id="resultRFC">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Placas:</span>
+                    <span class="result-value" id="resultPlacas">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Estado:</span>
+                    <span class="result-value" id="resultEstado">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Vigencia:</span>
+                    <span class="result-value" id="resultVigencia">-</span>
+                </div>
+            </div>
+            
+            <button class="submit-btn" id="closeModalBtn" style="width: 100%;">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Base de datos predefinida de tarjetas de circulación
+        const tarjetasCirculacion = [
+            {
+                placa: "ABC123",
+                serie: "1",
+                rfc: "1",
+                estado: "Ciudad de México",
+                nombre: "Juan Pérez Hernández",
+                vigencia: "2025-12-31"
+            },
+            {
+                placa: "DEF456",
+                serie: "2FMDK3GC5DBA65432",
+                rfc: "GOLM850305XYZ",
+                estado: "Jalisco",
+                nombre: "María González López",
+                vigencia: "2024-10-15"
+            },
+            {
+                placa: "GHI789",
+                serie: "3VWFE21C04M123789",
+                rfc: "ROMC920710MNO",
+                estado: "Nuevo León",
+                nombre: "Carlos Rodríguez Martínez",
+                vigencia: "2026-03-20"
+            },
+            {
+                placa: "JKL012",
+                serie: "JM1BK32F781234567",
+                rfc: "SALG750815PQR",
+                estado: "Veracruz",
+                nombre: "Ana Sánchez García",
+                vigencia: "2024-12-01"
+            },
+            {
+                placa: "MNO345",
+                serie: "WAUZZZ8K79A123456",
+                rfc: "VICM881220STU",
+                estado: "Estado de México",
+                nombre: "Miguel Torres Ramírez",
+                vigencia: "2025-08-30"
+            }
+        ];
+
+        // Tooltips
+        const tooltips = {
+            'placa': 'Ingrese las placas del vehículo sin guiones ni espacios.',
+            'serie': 'El Número de Identificación Vehicular (NIV) o número de serie se encuentra en la tarjeta de circulación.',
+            'rfc': 'Ingrese su RFC con homoclave, tal como aparece en su tarjeta.',
+            'estado': 'Seleccione el estado donde se expidió su tarjeta de circulación.'
+        };
+
+        // Tooltips
+        document.querySelectorAll('.help-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function(e) {
+                const tooltipId = this.getAttribute('data-tooltip');
+                const tooltip = document.getElementById('tooltip');
+                tooltip.textContent = tooltips[tooltipId];
+                tooltip.classList.add('show');
+                
+                const rect = this.getBoundingClientRect();
+                tooltip.style.position = 'fixed';
+                tooltip.style.left = rect.left - 260 + 'px';
+                tooltip.style.top = rect.top + 'px';
+            });
+
+            icon.addEventListener('mouseleave', function() {
+                document.getElementById('tooltip').classList.remove('show');
+            });
+        });
+
+        // Validación del formulario
+        document.getElementById('validationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const placa = document.getElementById('placa').value.toUpperCase();
+            const serie = document.getElementById('serie').value.toUpperCase();
+            const rfc = document.getElementById('rfc').value.toUpperCase();
+            const estado = document.getElementById('estado');
+            const estadoTexto = estado.options[estado.selectedIndex].text;
+            
+            // Buscar en la base de datos predefinida
+            const tarjetaEncontrada = tarjetasCirculacion.find(tarjeta => 
+                tarjeta.placa === placa && 
+                tarjeta.serie === serie && 
+                tarjeta.rfc === rfc
+            );
+            
+            if (tarjetaEncontrada) {
+                // Tarjeta válida
+                document.getElementById('resultIcon').className = 'success-icon';
+                document.getElementById('resultIcon').textContent = '✅';
+                document.getElementById('resultTitle').className = 'result-title';
+                document.getElementById('resultTitle').textContent = '¡Tarjeta de Circulación Válida!';
+                document.getElementById('resultMessage').textContent = 'Su tarjeta de circulación ha sido verificada y es válida.';
+                
+                document.getElementById('resultNombre').textContent = tarjetaEncontrada.nombre;
+                document.getElementById('resultRFC').textContent = tarjetaEncontrada.rfc;
+                document.getElementById('resultPlacas').textContent = tarjetaEncontrada.placa;
+                document.getElementById('resultEstado').textContent = tarjetaEncontrada.estado;
+                document.getElementById('resultVigencia').textContent = new Date(tarjetaEncontrada.vigencia).toLocaleDateString('es-MX');
+            } else {
+                // Tarjeta no encontrada
+                document.getElementById('resultIcon').className = 'error-icon';
+                document.getElementById('resultIcon').textContent = '❌';
+                document.getElementById('resultTitle').className = 'result-title invalid';
+                document.getElementById('resultTitle').textContent = 'Tarjeta No Encontrada';
+                document.getElementById('resultMessage').textContent = 'No se encontró registro de esta tarjeta de circulación en nuestra base de datos.';
+                
+                document.getElementById('resultNombre').textContent = 'No disponible';
+                document.getElementById('resultRFC').textContent = rfc;
+                document.getElementById('resultPlacas').textContent = placa;
+                document.getElementById('resultEstado').textContent = estadoTexto;
+                document.getElementById('resultVigencia').textContent = 'No disponible';
+            }
+            
+            // Mostrar el modal
+            document.getElementById('resultModal').style.display = 'flex';
+        });
+
+        // Funciones auxiliares
+        document.getElementById('rfc').addEventListener('input', function(e) {
+            this.value = this.value.toUpperCase();
+        });
+
+        // Cerrar modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('resultModal').style.display = 'none';
+        });
+        
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('resultModal').style.display = 'none';
+        });
+        
+        // Cerrar modal al hacer clic fuera de él
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('resultModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
