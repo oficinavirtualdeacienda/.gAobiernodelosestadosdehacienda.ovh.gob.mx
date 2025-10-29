@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oficina Virtual de Hacienda | OVH</title>
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -366,60 +365,61 @@
             }
         }
 
-          /* Animación de inicio */
-    .startup-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeOut 0.5s ease-in-out 1s forwards;
-    }
+        /* Animación de inicio */
+        .startup-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-in-out 1s forwards;
+        }
 
-    .golden-circle {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
-        border-radius: 50%;
-        animation: expandAndFade 1s ease-in-out forwards;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-    }
+        .golden-circle {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            border-radius: 50%;
+            animation: expandAndFade 1s ease-in-out forwards;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
 
-    @keyframes expandAndFade {
-        0% {
-            transform: scale(0);
-            opacity: 1;
+        @keyframes expandAndFade {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
         }
-        50% {
-            transform: scale(1.5);
-            opacity: 0.7;
-        }
-        100% {
-            transform: scale(3);
-            opacity: 0;
-        }
-    }
 
-    @keyframes fadeOut {
-        0% {
-            opacity: 1;
-            visibility: visible;
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
         }
-        100% {
-            opacity: 0;
-            visibility: hidden;
+        
+        /* Color negro para el texto del hero */
+        .hero h2,
+        .hero p {
+            color: #000000 !important;
         }
-    }
-    /* Color negro para el texto del hero */
-.hero h2,
-.hero p {
-    color: #000000 !important;
-}
     </style>
 </head>
 <body>
@@ -429,7 +429,6 @@
             <div>
                 <span>📞 800 715 4350 | ✉️ atencion@ovh.gob.mx</span>
             </div>
-          
         </div>
     </div>
 
@@ -451,36 +450,35 @@
         </div>
     </header>
 
-
-
     <!-- Hero -->
     <section class="hero">
         <h2>Bienvenido a la Oficina Virtual de Hacienda</h2>
         <p>Verifica el tramite de tu permiso provisional y tu licencia de conducir</p>
     </section>
 
-   <!-- Servicios -->
-<section class="services">
-    <div class="container">
-        <h2 class="section-title">Servicios en Línea</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">📄</div>
-                <h3>VERIFICACION VEHICULAR / PERMISOS PROVISIONALES</h3>
-                <p>Consulta con tu numero de folio tu permiso provisional para circular</p>
-                <button class="btn" onclick="window.location.href='permiso-provisional.html'">Ir a Consultar</button>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🎫</div>
-                <h3>VERIFICACION VEHICULAR / LICENCIAS DE CONDUCIR</h3>
-                <p>Consulta con tu numero de folio tu licencia de conducir</p>
-                <button class="btn" onclick="window.location.href='licencia-conducir.html'">Ir a Consultar</button>
-            </div>
-        </div>
-    </div>
-</section>
-                
-              
+    <!-- Servicios -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Servicios en Línea</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📄</div>
+                    <h3>VERIFICACION VEHICULAR / PERMISOS PROVISIONALES</h3>
+                    <p>Consulta con tu numero de folio tu permiso provisional para circular</p>
+                    <button class="btn" onclick="window.location.href='permiso-provisional.html'">Ir a Consultar</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎫</div>
+                    <h3>VERIFICACION VEHICULAR / LICENCIAS DE CONDUCIR</h3>
+                    <p>Consulta con tu numero de folio tu licencia de conducir</p>
+                    <button class="btn" onclick="window.location.href='licencia-conducir.html'">Ir a Consultar</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>CONTROL VEHICULAR / VALIDACION DE AUTENTICIDAD TARJETAS DE CIRCULACION</h3>
+                    <p>Verifica la autenticidad de tu tarjeta de circulación</p>
+                    <button class="btn" onclick="window.location.href='control-vehicular.html'">Ir a Consultar</button>
+                </div>
             </div>
         </div>
     </section>
@@ -526,10 +524,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Oficina Virtual de Hacienda</h3>
-                <p>Secretaría de Finanzas y Planeación<br>
-               </p>
+                <p>Secretaría de Finanzas y Planeación</p>
             </div>
-           
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <p>Teléfono: 800 715 4350<br>
@@ -542,27 +538,26 @@
             <p>© 2025 www.ovh.gob.mx Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear elemento de animación
+            const animation = document.createElement('div');
+            animation.className = 'startup-animation';
+            
+            const circle = document.createElement('div');
+            circle.className = 'golden-circle';
+            
+            animation.appendChild(circle);
+            document.body.appendChild(animation);
+
+            // Remover la animación después de que termine
+            setTimeout(() => {
+                if (document.body.contains(animation)) {
+                    document.body.removeChild(animation);
+                }
+            }, 1500);
+        });
+    </script>
 </body>
-<script>
-    cript>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Crear elemento de animación
-        const animation = document.createElement('div');
-        animation.className = 'startup-animation';
-        
-        const circle = document.createElement('div');
-        circle.className = 'golden-circle';
-        
-        animation.appendChild(circle);
-        document.body.appendChild(animation);
-
-        // Remover la animación después de que termine
-        setTimeout(() => {
-            if (document.body.contains(animation)) {
-                document.body.removeChild(animation);
-            }
-        }, 1500);
-    });
-</script>
 </html>
-
