@@ -76,7 +76,7 @@
 
         .site-title h1 {
             font-size: 20px;
-            color: #DC143C;
+            color: #DC143C; /* Único elemento que queda en rojo */
             font-weight: bold;
         }
 
@@ -148,7 +148,7 @@
         .section-title {
             text-align: center;
             font-size: 28px;
-            color: #DC143C;
+            color: #C9A646; /* Cambiado a dorado */
             margin-bottom: 40px;
             font-weight: bold;
         }
@@ -171,7 +171,7 @@
 
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
+            box-shadow: 0 5px 20px rgba(201, 166, 70, 0.3); /* Cambiado a dorado */
         }
 
         .service-icon {
@@ -189,7 +189,7 @@
         }
 
         .service-card h3 {
-            color: #DC143C;
+            color: #C9A646; /* Cambiado a dorado */
             margin-bottom: 10px;
             font-size: 20px;
         }
@@ -204,7 +204,7 @@
             display: inline-block;
             padding: 12px 30px;
             background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
-            color: #DC143C;
+            color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: all 0.3s;
@@ -220,6 +220,35 @@
             background: linear-gradient(135deg, #C9A646 0%, #C9A646 100%);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Sección CONÓCENOS */
+        .about-section {
+            padding: 60px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .about-title {
+            color: #C9A646;
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .about-subtitle {
+            color: #000000;
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            font-weight: bold;
+            line-height: 1.8;
         }
 
         /* Información */
@@ -243,7 +272,7 @@
         }
 
         .info-card h3 {
-            color: #DC143C;
+            color: #C9A646; /* Cambiado a dorado */
             margin-bottom: 15px;
             font-size: 20px;
         }
@@ -348,6 +377,14 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+
+            .about-title {
+                font-size: 26px;
+            }
+
+            .about-subtitle {
+                font-size: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -362,6 +399,14 @@
 
             .site-title h1 {
                 font-size: 16px;
+            }
+
+            .about-title {
+                font-size: 22px;
+            }
+
+            .about-subtitle {
+                font-size: 18px;
             }
         }
 
@@ -479,6 +524,19 @@
                     <p>Verifica la autenticidad de tu tarjeta de circulación</p>
                     <button class="btn" onclick="window.location.href='control-vehicular.html'">Ir a Consultar</button>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección CONÓCENOS -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="about-title">CONÓCENOS</h2>
+            <h3 class="about-subtitle">Oficina Virtual de Hacienda</h3>
+            <div class="about-content">
+                <p>La Oficina Virtual de Hacienda es una plataforma digital innovadora diseñada para facilitar los trámites y servicios relacionados con la verificación vehicular, permisos provisionales y licencias de conducir.</p>
+                <p>Nuestro compromiso es ofrecer un servicio eficiente, transparente y accesible para todos los ciudadanos, optimizando los procesos y reduciendo los tiempos de espera.</p>
+                <p>Contamos con un equipo de profesionales dedicados a brindar la mejor atención y asesoría en cada uno de los servicios que ofrecemos.</p>
             </div>
         </div>
     </section>
