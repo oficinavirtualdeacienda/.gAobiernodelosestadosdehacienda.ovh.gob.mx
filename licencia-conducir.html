@@ -148,6 +148,36 @@
             margin-bottom: 30px;
         }
 
+        .search-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-container input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .option-label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .option-description {
+            font-size: 14px;
+            color: #666;
+            margin-left: 28px;
+            margin-top: 5px;
+        }
+
         .search-form {
             display: flex;
             flex-direction: column;
@@ -164,6 +194,50 @@
             font-size: 16px;
         }
 
+        .captcha-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .captcha-box {
+            width: 100%;
+            height: 80px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .captcha-text {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        .captcha-text a {
+            color: #a53c3c;
+            text-decoration: none;
+        }
+
+        .captcha-text a:hover {
+            text-decoration: underline;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
         .search-button {
             background-color: #a53c3c;
             color: white;
@@ -177,6 +251,21 @@
 
         .search-button:hover {
             background-color: #8a2e2e;
+        }
+
+        .clear-button {
+            background-color: #666;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .clear-button:hover {
+            background-color: #555;
         }
 
         .certificate-badge {
@@ -286,6 +375,20 @@
             display: block;
         }
 
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
         .separator {
             height: 20px;
             background: linear-gradient(to right, #ccc 0%, #ccc 100%);
@@ -348,6 +451,15 @@
             .license-info {
                 grid-template-columns: 1fr;
             }
+            
+            .button-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .search-button, .clear-button {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -383,13 +495,41 @@
             </div>
 
             <div class="title">
-                <h1 id="main-title">Ingresa tu número de identificador o numero de folio para verificar tu licencia</h1>
+                <h1 id="main-title">Ingresa tu número de identificador o número de folio para verificar tu licencia</h1>
             </div>
 
             <div class="search-section">
+                <div class="search-options">
+                    <div class="option-container">
+                        <input type="radio" id="search-by-folio" name="search-type" value="folio" checked>
+                        <label for="search-by-folio" class="option-label">Por Número de Licencia</label>
+                    </div>
+                    <div class="option-description">Ingresa el número sin espacios.</div>
+                    
+                    <div class="option-container">
+                        <input type="radio" id="search-by-curp" name="search-type" value="curp">
+                        <label for="search-by-curp" class="option-label">Por CURP</label>
+                    </div>
+                    <div class="option-description">18 caracteres (ej. ABCD900101HDFRRS01).</div>
+                </div>
+
                 <form class="search-form" id="search-form">
-                    <input type="text" class="search-input" id="folio-input" placeholder="Número de folio" required>
-                    <button type="submit" class="search-button">Verificar</button>
+                    <input type="text" class="search-input" id="search-input" placeholder="Número de identificador" required>
+                    
+                    <div class="captcha-container">
+                        <div class="captcha-box" id="captcha-box">
+                            <!-- Aquí iría el CAPTCHA real, esto es solo una simulación -->
+                            <div id="captcha-display">Cloudflare Turnstile CAPTCHA</div>
+                        </div>
+                        <div class="captcha-text">
+                            Protegido por <a href="#" target="_blank">Cloudflare Turnstile</a>.
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="search-button">Verificar</button>
+                        <button type="button" class="clear-button" id="clear-button">Limpiar</button>
+                    </div>
                 </form>
             </div>
 
@@ -401,7 +541,11 @@
             </div>
 
             <div class="error-message" id="error-message">
-                Numero de Identificaor no encontrado. Por favor, verifica el número e intenta nuevamente.
+                Número de Identificador no encontrado. Por favor, verifica el número e intenta nuevamente.
+            </div>
+
+            <div class="success-message" id="success-message">
+                ¡Operación exitosa!
             </div>
 
             <div class="license-details" id="license-details">
@@ -409,7 +553,7 @@
                 
                 <div class="license-info">
                     <div class="info-item">
-                        <div class="info-label">Numero de Identificador</div>
+                        <div class="info-label">NÚMERO DE IDENTIFICADOR</div>
                         <div class="info-value" id="folio-value">ABC123456</div>
                     </div>
                     <div class="info-item">
@@ -491,7 +635,86 @@ const licenciasDatabase = {
         curp: "GUV811004HDFRVR01",
         validity: "5 AÑOS",
         expiry: "03/11/2030"
+    },
+     "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
+    },
+    "": {
+        name: "JOSE ARMANDO GUERRERO VIVEROS",
+        type: "LICENCIA TIPO D",
+        curp: "GUV811004HDFRVR01",
+        validity: "5 AÑOS",
+        expiry: "03/11/2030"
     }
+};
+
+// Base de datos por CURP
+const curpDatabase = {
+    "IARO060911HVZBDMA8": "OIR11HVZ2528LD",
+    "QUOJ900724HGRNSV00": "JOQ-3456",
+    "HEMC980724HVZRJR05": "CJHM24071998",
+    "OBS082997JZD": "FDZ-1121",
+    "GUV811004HDFRVR01": "JHP-0790"
 };
 
 function toggleMenu() {
@@ -509,28 +732,83 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// Actualizar placeholder según el tipo de búsqueda
+document.querySelectorAll('input[name="search-type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const searchInput = document.getElementById('search-input');
+        const searchType = document.querySelector('input[name="search-type"]:checked').value;
+        
+        if (searchType === 'folio') {
+            searchInput.placeholder = 'Número de identificador';
+            document.getElementById('main-title').textContent = 'Ingresa tu número de identificador o número de folio para verificar tu licencia';
+        } else {
+            searchInput.placeholder = 'CURP (18 caracteres)';
+            document.getElementById('main-title').textContent = 'Ingresa tu CURP para verificar tu licencia';
+        }
+    });
+});
+
+// Limpiar formulario
+document.getElementById('clear-button').addEventListener('click', function() {
+    document.getElementById('search-input').value = '';
+    document.getElementById('search-input').focus();
+    
+    // Ocultar mensajes y detalles
+    document.getElementById('license-details').classList.remove('show');
+    document.getElementById('error-message').classList.remove('show');
+    document.getElementById('success-message').classList.remove('show');
+    
+    // Resetear badge
+    const badge = document.getElementById('certificate-badge');
+    badge.classList.remove('valid', 'invalid');
+    
+    // Restaurar título original
+    const searchType = document.querySelector('input[name="search-type"]:checked').value;
+    if (searchType === 'folio') {
+        document.getElementById('main-title').textContent = 'Ingresa tu número de identificador o número de folio para verificar tu licencia';
+    } else {
+        document.getElementById('main-title').textContent = 'Ingresa tu CURP para verificar tu licencia';
+    }
+});
+
 // Manejar la búsqueda de folio
 document.getElementById('search-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const folio = document.getElementById('folio-input').value.trim();
+    const searchValue = document.getElementById('search-input').value.trim();
+    const searchType = document.querySelector('input[name="search-type"]:checked').value;
     const badge = document.getElementById('certificate-badge');
     const licenseDetails = document.getElementById('license-details');
     const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
     
     // Ocultar mensajes previos
     licenseDetails.classList.remove('show');
     errorMessage.classList.remove('show');
+    successMessage.classList.remove('show');
     
     // Resetear badge
     badge.classList.remove('valid', 'invalid');
     
-    if (folio) {
-        // Buscar en la base de datos
-        const licenseData = licenciasDatabase[folio];
+    if (searchValue) {
+        let licenseData = null;
+        let folio = null;
+        
+        // Buscar según el tipo seleccionado
+        if (searchType === 'folio') {
+            // Buscar por folio
+            licenseData = licenciasDatabase[searchValue];
+            folio = searchValue;
+        } else {
+            // Buscar por CURP
+            folio = curpDatabase[searchValue];
+            if (folio) {
+                licenseData = licenciasDatabase[folio];
+            }
+        }
         
         if (licenseData) {
-            // Folio encontrado
+            // Licencia encontrada
             document.getElementById('main-title').textContent = 'Licencia válida por esta dependencia';
             
             // Actualizar el folio en los detalles
@@ -546,11 +824,16 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
             document.getElementById('license-validity').textContent = licenseData.validity;
             document.getElementById('license-expiry').textContent = licenseData.expiry;
             
-            // Mostrar los detalles de la licencia
+            // Mostrar los detalles de la licencia y mensaje de éxito
             licenseDetails.classList.add('show');
+            successMessage.classList.add('show');
         } else {
-            // Folio no encontrado
-            document.getElementById('main-title').textContent = 'Folio no encontrado';
+            // Licencia no encontrada
+            if (searchType === 'folio') {
+                document.getElementById('main-title').textContent = 'Número de identificador no encontrado';
+            } else {
+                document.getElementById('main-title').textContent = 'CURP no encontrado';
+            }
             
             // Cambiar la palomita a rojo (inválido)
             badge.classList.add('invalid');
@@ -562,13 +845,4 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
 });
 </script>
 
-
 </html>
-
-
-
-
-
-
-
-
