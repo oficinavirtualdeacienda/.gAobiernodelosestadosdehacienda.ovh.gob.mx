@@ -3,846 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VERIFICACIÓN DE LICENCIAS - Gobiernos de los estados unidos mexicanos</title>
+    <title>OHV - Oficina de Hacienda Virtual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background: #f5f5f5;
             min-height: 100vh;
         }
-
-        .header {
-            background-color: #f5f5f5;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .url-bar {
-            background-color: #e8e8e8;
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 14px;
-            color: #666;
-            flex: 1;
-            max-width: 300px;
-            margin: 0 20px;
-        }
-
-        .mobile-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 18px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            min-height: calc(100vh - 60px);
-            position: relative;
-        }
-
-        .top-section {
-            padding: 20px;
-            background-color: white;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            width: 120px;
-            height: 80px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 12px;
-            border-radius: 5px;
-        }
-
-        .menu-btn {
+        
+        .loader {
             width: 50px;
-            height: 40px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .menu-btn div {
-            width: 25px;
-            height: 3px;
-            background-color: #333;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background-color: white;
-            border: 2px solid #333;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            min-width: 200px;
-            display: none;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            color: #333;
-            text-decoration: none;
-            display: block;
-            font-weight: bold;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f5f5f5;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title h1 {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .search-section {
-            margin-bottom: 30px;
-        }
-
-        .search-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .option-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .option-container input[type="radio"] {
-            width: 18px;
-            height: 18px;
-        }
-
-        .option-label {
-            font-size: 16px;
-            color: #333;
-        }
-
-        .option-description {
-            font-size: 14px;
-            color: #666;
-            margin-left: 28px;
-            margin-top: 5px;
-        }
-
-        .search-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .search-input {
-            width: 100%;
-            max-width: 400px;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .captcha-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 15px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .captcha-box {
-            width: 100%;
-            height: 80px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .captcha-text {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-        }
-
-        .captcha-text a {
-            color: #a53c3c;
-            text-decoration: none;
-        }
-
-        .captcha-text a:hover {
-            text-decoration: underline;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .search-button {
-            background-color: #a53c3c;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-button:hover {
-            background-color: #8a2e2e;
-        }
-
-        .clear-button {
-            background-color: #666;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .clear-button:hover {
-            background-color: #555;
-        }
-
-        .certificate-badge {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-
-        .badge {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
+            height: 50px;
             border-radius: 50%;
-            display: flex;
+            background: #1e40af;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+        }
+        
+        .govt-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .captcha-box {
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            background: #f9fafb;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 12px;
+            gap: 1rem;
+            cursor: pointer;
+        }
+        
+        .captcha-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #6b7280;
+            border-radius: 3px;
+            cursor: pointer;
             position: relative;
         }
-
-        .badge.valid {
-            background-color: #3498db;
+        
+        .captcha-checkbox.checked {
+            background: #1e40af;
+            border-color: #1e40af;
         }
-
-        .badge.invalid {
-            background-color: #e74c3c;
-        }
-
-        .badge::after {
-            content: '';
+        
+        .captcha-checkbox.checked::after {
+            content: '✓';
+            color: white;
             position: absolute;
-            bottom: -10px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 15px solid #ddd;
-        }
-
-        .badge.valid::after {
-            border-top-color: #3498db;
-        }
-
-        .badge.invalid::after {
-            border-top-color: #e74c3c;
-        }
-
-        .license-details {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .license-details.show {
-            display: block;
-        }
-
-        .license-details h2 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #333;
-            text-align: center;
-        }
-
-        .license-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .info-item {
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
+            transform: translate(-50%, -50%);
             font-size: 16px;
             font-weight: bold;
-            color: #333;
         }
-
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
+        
+        .result-card {
+            animation: slideIn 0.5s ease-out;
         }
-
-        .error-message.show {
-            display: block;
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
+        
+        .news-item {
+            border-left: 4px solid #1e40af;
+            transition: all 0.3s;
         }
-
-        .success-message.show {
-            display: block;
+        
+        .news-item:hover {
+            border-left-color: #3b82f6;
+            background: #f9fafb;
         }
-
-        .separator {
-            height: 20px;
-            background: linear-gradient(to right, #ccc 0%, #ccc 100%);
-            margin: 20px 0;
-        }
-
-        .footer {
-            background-color: #a53c3c;
-            color: white;
-            padding: 30px 20px;
-            margin-top: auto;
-        }
-
-        .footer h2 {
-            font-size: 18px;
-            font-weight: normal;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .footer p {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 10px;
-            font-size: 14px;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .footer-links .separator {
-            color: white;
-            height: auto;
-            background: none;
-            margin: 0;
-        }
-
-        .bottom-bar {
-            height: 4px;
-            background-color: #666;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 480px) {
-            .title h1 {
-                font-size: 24px;
-            }
-            
-            .container {
-                margin: 0;
-            }
-            
-            .license-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .search-button, .clear-button {
-                width: 100%;
-            }
+        
+        .info-banner {
+            background: #dbeafe;
+            border-left: 4px solid #1e40af;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="mobile-icons">
-            <span>🏠</span>
-        </div>
-        <div class="url-bar">https://gobiernodetransitonacional.gob.mx</div>
-        <div class="mobile-icons">
-            <span>+</span>
-            <span>📱</span>
-            <span>⋮</span>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 flex items-center justify-center z-50 bg-white">
+        <div class="text-center">
+            <div class="loader mx-auto mb-4"></div>
+            <p class="text-gray-700 text-xl font-semibold">Cargando sistema...</p>
         </div>
     </div>
 
-    <div class="container">
-        <div class="top-section">
-            <div class="logo-section">
-                <div class="logo">
-                    <!-- Reemplaza con tu URL de imagen del logo -->
-                    <img src="https://www.seg.gob.mx/difusioneducativa/wp-content/uploads/sites/20/2020/09/escudo-nacional-oficial.png" alt="Huitzuco Logo" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Huitzuco<br>2024-2027';">
-                </div>
-                <div class="menu-btn" onclick="toggleMenu()">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="index.html" class="dropdown-item">INICIO</a>
-                        <a href="#" class="dropdown-item">AVISOS DE GOBIERNO</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="title">
-                <h1 id="main-title">Ingresa tu número de identificador o número de folio para verificar tu licencia</h1>
-            </div>
-
-            <div class="search-section">
-                <div class="search-options">
-                    <div class="option-container">
-                        <input type="radio" id="search-by-folio" name="search-type" value="folio" checked>
-                        <label for="search-by-folio" class="option-label">Por Número de Licencia</label>
-                    </div>
-                    <div class="option-description">Ingresa el número sin espacios.</div>
-                    
-                    <div class="option-container">
-                        <input type="radio" id="search-by-curp" name="search-type" value="curp">
-                        <label for="search-by-curp" class="option-label">Por CURP</label>
-                    </div>
-                    <div class="option-description">18 caracteres (ej. ABCD900101HDFRRS01).</div>
-                </div>
-
-                <form class="search-form" id="search-form">
-                    <input type="text" class="search-input" id="search-input" placeholder="Número de identificador" required>
-                    
-                    <div class="captcha-container">
-                        <div class="captcha-box" id="captcha-box">
-                            <!-- Aquí iría el CAPTCHA real, esto es solo una simulación -->
-                            <div id="captcha-display">Cloudflare Turnstile CAPTCHA</div>
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
+        <!-- Header -->
+        <header class="header-gradient text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
+                            <svg class="w-10 h-10 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                            </svg>
                         </div>
-                        <div class="captcha-text">
-                            Protegido por <a href="#" target="_blank">Cloudflare Turnstile</a>.
+                        <div>
+                            <h1 class="text-3xl font-bold">OHV</h1>
+                            <p class="text-blue-100 text-sm">Oficina de Hacienda Virtual</p>
                         </div>
                     </div>
-                    
-                    <div class="button-group">
-                        <button type="submit" class="search-button">Verificar</button>
-                        <button type="button" class="clear-button" id="clear-button">Limpiar</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="certificate-badge">
-                <div class="badge" id="certificate-badge">
-                    <!-- Reemplaza con tu URL de imagen del certificado -->
-                    <img src="https://i.pinimg.com/736x/87/26/2d/87262d46a57cd8c4df716defeb66ecce.jpg" alt="Certificado" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none'; this.parentElement.innerHTML='✓<br>Certificado';">
-                </div>
-            </div>
-
-            <div class="error-message" id="error-message">
-                Número de Identificador no encontrado. Por favor, verifica el número e intenta nuevamente.
-            </div>
-
-            <div class="success-message" id="success-message">
-                ¡Operación exitosa!
-            </div>
-
-            <div class="license-details" id="license-details">
-                <h2>Licencia válida por esta dependencia</h2>
-                
-                <div class="license-info">
-                    <div class="info-item">
-                        <div class="info-label">NÚMERO DE IDENTIFICADOR</div>
-                        <div class="info-value" id="folio-value">ABC123456</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">NOMBRE</div>
-                        <div class="info-value" id="license-name">Juan Pérez Hernández</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">TIPO DE LICENCIA</div>
-                        <div class="info-value" id="license-type">Licencia tipo A</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">CURP</div>
-                        <div class="info-value" id="license-curp">PEHJ920315HDFRRN01</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">VIGENCIA</div>
-                        <div class="info-value" id="license-validity">3 años</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">VENCE</div>
-                        <div class="info-value" id="license-expiry">15/03/2027</div>
+                    <div class="hidden md:block text-right">
+                        <p class="text-sm text-blue-100">Gobierno de México</p>
+                        <p class="text-xs text-blue-200">Secretaría de Hacienda</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <div class="separator"></div>
+        <!-- Navigation -->
+ 
 
-        <div class="footer">
-            <h2>2024-2027 Gobernacion Nacional de Mexico</h2>
-            
-            <p>Portal web de la dirección de tránsito y vialidad pública de los Estados de Mexico. En este portal podrás verificar la vigencia y autenticidad de las licencias de conducir expedidas por los Estados de la Republica Mexicana. Infórmate sobre los diferentes trámites que se pueden realizar para la expedición de licencias de conducir.</p>
-            
-            <div class="footer-links">
-                <a href="#">Política de privacidad</a>
-                <span class="separator">|</span>
-                <a href="#">Términos y condiciones</a>
+
+                    <!-- Main Card -->
+                    <div class="govt-card rounded-lg p-6 mb-6 fade-in">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Verificación de Licencias de Conducir</h2>
+                        <p class="text-gray-600 mb-6">Consulta la validez y autenticidad de licencias de conducir emitidas por esta dependencia</p>
+
+                        <!-- Important Notice -->
+                        <div class="info-banner p-4 rounded-lg mb-6">
+                            <div class="flex gap-3">
+                                <svg class="w-6 h-6 text-blue-700 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/>
+                                </svg>
+                                <div class="text-sm">
+                                    <p class="font-semibold text-blue-900 mb-1">Información Importante</p>
+                                    <p class="text-blue-800">Este sistema permite verificar la autenticidad de licencias de conducir. Los datos mostrados son de carácter oficial y están respaldados por la Secretaría de Hacienda.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search Type Selection -->
+                        <div id="searchTypeSection" class="mb-6">
+                            <label class="block text-gray-800 font-semibold mb-3">1) Selecciona la opción de búsqueda:</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <button onclick="selectSearchType('folio')" class="search-type-btn p-4 border-2 border-gray-300 rounded-lg hover:border-blue-700 hover:bg-blue-50 transition-all text-left">
+                                    <div class="font-semibold text-gray-800 flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z"/>
+                                        </svg>
+                                        Número de Folio
+                                    </div>
+                                    <div class="text-sm text-gray-600 mt-1">Buscar por número de folio de licencia</div>
+                                </button>
+                                <button onclick="selectSearchType('curp')" class="search-type-btn p-4 border-2 border-gray-300 rounded-lg hover:border-blue-700 hover:bg-blue-50 transition-all text-left">
+                                    <div class="font-semibold text-gray-800 flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                                        </svg>
+                                        CURP
+                                    </div>
+                                    <div class="text-sm text-gray-600 mt-1">Buscar por CURP del titular</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search Form -->
+                        <div id="searchForm" style="display: none;">
+                            <div class="mb-6">
+                                <label class="block text-gray-800 font-semibold mb-2">2) Ingresa los datos para consultar:</label>
+                                <input type="text" id="searchInput" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-700 focus:outline-none transition-all uppercase" placeholder="">
+                                <p class="text-xs text-gray-500 mt-1">* Campo obligatorio</p>
+                            </div>
+
+                            <!-- Captcha -->
+                            <div class="mb-6">
+                                <label class="block text-gray-800 font-semibold mb-3">Verificación de seguridad:</label>
+                                <div class="captcha-box" onclick="toggleCaptcha()">
+                                    <div id="captchaCheckbox" class="captcha-checkbox"></div>
+                                    <span class="text-gray-700 text-sm">No soy un robot</span>
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='%234285f4' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3C/svg%3E" alt="captcha">
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex gap-4">
+                                <button onclick="searchLicense()" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                        </svg>
+                                        Buscar
+                                    </span>
+                                </button>
+                                <button onclick="clearForm()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                        Limpiar
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Result Section -->
+                        <div id="resultSection" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Contact Info -->
+                    <div class="govt-card rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                            Contacto
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <p class="font-semibold text-gray-700">Centro de Atención</p>
+                                <p class="text-blue-700 font-semibold">800-46-32-436</p>
+                                <p class="text-gray-600 text-xs">Lunes a Viernes 8:00 - 18:00 hrs</p>
+                            </div>
+                            <div class="border-t pt-3">
+                                <p class="font-semibold text-gray-700">Atención en CDMX</p>
+                                <p class="text-blue-700 font-semibold">55-5209-1111</p>
+                            </div>
+                            <div class="border-t pt-3">
+                                <p class="font-semibold text-gray-700">Emergencias</p>
+                                <p class="text-blue-700 font-semibold">911</p>
+                            </div>
+                            <div class="border-t pt-3">
+                                <p class="font-semibold text-gray-700">Correo electrónico</p>
+                                <p class="text-blue-700 text-xs break-all">contacto@hacienda.gob.mx</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- News Section -->
+                    <div class="govt-card rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"/>
+                                <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"/>
+                            </svg>
+                            Noticias y Avisos
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="news-item pl-3 py-2">
+                                <p class="text-xs text-gray-500 mb-1">28 Oct 2025</p>
+                                <p class="text-sm font-semibold text-gray-800 mb-1">Nuevas licencias digitales disponibles</p>
+                                <p class="text-xs text-gray-600">Ya puedes obtener tu licencia en formato digital desde la app oficial.</p>
+                            </div>
+                            <div class="news-item pl-3 py-2">
+                                <p class="text-xs text-gray-500 mb-1">15 Oct 2025</p>
+                                <p class="text-sm font-semibold text-gray-800 mb-1">Descuentos en renovación</p>
+                                <p class="text-xs text-gray-600">Aprovecha el 20% de descuento en renovaciones hasta el 30 de noviembre.</p>
+                            </div>
+                            <div class="news-item pl-3 py-2">
+                                <p class="text-xs text-gray-500 mb-1">01 Oct 2025</p>
+                                <p class="text-sm font-semibold text-gray-800 mb-1">Nuevos módulos de atención</p>
+                                <p class="text-xs text-gray-600">Se habilitaron 5 nuevos módulos para trámites de licencias.</p>
+                            </div>
+                        </div>
+                    </div>
+
+              
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white mt-12">
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+                    <div>
+                        <h4 class="font-bold mb-3">OHV</h4>
+                        <p class="text-sm text-gray-300">Oficina de Hacienda Virtual - Gobierno de México</p>
+                        <p class="text-xs text-gray-400 mt-2">Secretaría de Hacienda y Crédito Público</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">Información</h4>
+                        <ul class="text-sm space-y-1 text-gray-300">
+                            <li><a href="#" class="hover:text-white">Acerca de</a></li>
+                            <li><a href="#" class="hover:text-white">Aviso de privacidad</a></li>
+                            <li><a href="#" class="hover:text-white">Términos de uso</a></li>
+                            <li><a href="#" class="hover:text-white">Accesibilidad</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-3">Síguenos</h4>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700">
+                                <span class="text-xs">f</span>
+                            </a>
+                            <a href="#" class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500">
+                                <span class="text-xs">t</span>
+                            </a>
+                            <a href="#" class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700">
+                                <span class="text-xs">y</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
+                    <p>&copy; 2025 Gobierno de México. Todos los derechos reservados.</p>
+                </div>
             </div>
-            
-            <div class="bottom-bar"></div>
-        </div>
+        </footer>
     </div>
-</body>
 
-<script>
-// Base de datos simulada con múltiples licencias
-const licenciasDatabase = {
-    "OIR11HVZ2528LD": {
-        name: "OMAR IBARRA RODRIGUEZ",
-        type: "LICENCIA TIPO D",
-        curp: "IARO060911HVZBDMA8",
-        validity: "3 AÑOS",
-        expiry: "15/10/2028"
-    },
-    "JOQ-3456": {
-        name: "JOVANNI QUINTERO OSEGUERA",
-        type: "LICENCIA TIPO A",
-        curp: "QUOJ900724HGRNSV00",
-        validity: "5 AÑOS",
-        expiry: "31/10/2030"
-    },
-    "CJHM24071998": {
-        name: "JESUS DE JESUS HERNANDEZ MEJIA ",
-        type: "LICENCIA TIPO D",
-        curp: "HEMC980724HVZRJR05",
-        validity: "3 AÑOS",
-        expiry: "31/10/2028"
-    },
-    "FDZ-1121": {
-        name: "OSCAR BELTRAN SIBRIAN",
-        type: "LICENCIA TIPO A",
-        curp: "OBS082997JZD",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "JHP-0790": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-     "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    },
-    "": {
-        name: "JOSE ARMANDO GUERRERO VIVEROS",
-        type: "LICENCIA TIPO D",
-        curp: "GUV811004HDFRVR01",
-        validity: "5 AÑOS",
-        expiry: "03/11/2030"
-    }
-};
-
-// Base de datos por CURP
-const curpDatabase = {
-    "IARO060911HVZBDMA8": "OIR11HVZ2528LD",
-    "QUOJ900724HGRNSV00": "JOQ-3456",
-    "HEMC980724HVZRJR05": "CJHM24071998",
-    "OBS082997JZD": "FDZ-1121",
-    "GUV811004HDFRVR01": "JHP-0790"
-};
-
-function toggleMenu() {
-    const dropdown = document.getElementById('dropdownMenu');
-    dropdown.classList.toggle('show');
-}
-
-// Cerrar el menú si se hace clic fuera de él
-document.addEventListener('click', function(event) {
-    const menuBtn = document.querySelector('.menu-btn');
-    const dropdown = document.getElementById('dropdownMenu');
-    
-    if (!menuBtn.contains(event.target)) {
-        dropdown.classList.remove('show');
-    }
-});
-
-// Actualizar placeholder según el tipo de búsqueda
-document.querySelectorAll('input[name="search-type"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        const searchInput = document.getElementById('search-input');
-        const searchType = document.querySelector('input[name="search-type"]:checked').value;
-        
-        if (searchType === 'folio') {
-            searchInput.placeholder = 'Número de identificador';
-            document.getElementById('main-title').textContent = 'Ingresa tu número de identificador o número de folio para verificar tu licencia';
-        } else {
-            searchInput.placeholder = 'CURP (18 caracteres)';
-            document.getElementById('main-title').textContent = 'Ingresa tu CURP para verificar tu licencia';
-        }
-    });
-});
-
-// Limpiar formulario
-document.getElementById('clear-button').addEventListener('click', function() {
-    document.getElementById('search-input').value = '';
-    document.getElementById('search-input').focus();
-    
-    // Ocultar mensajes y detalles
-    document.getElementById('license-details').classList.remove('show');
-    document.getElementById('error-message').classList.remove('show');
-    document.getElementById('success-message').classList.remove('show');
-    
-    // Resetear badge
-    const badge = document.getElementById('certificate-badge');
-    badge.classList.remove('valid', 'invalid');
-    
-    // Restaurar título original
-    const searchType = document.querySelector('input[name="search-type"]:checked').value;
-    if (searchType === 'folio') {
-        document.getElementById('main-title').textContent = 'Ingresa tu número de identificador o número de folio para verificar tu licencia';
-    } else {
-        document.getElementById('main-title').textContent = 'Ingresa tu CURP para verificar tu licencia';
-    }
-});
-
-// Manejar la búsqueda de folio
-document.getElementById('search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const searchValue = document.getElementById('search-input').value.trim();
-    const searchType = document.querySelector('input[name="search-type"]:checked').value;
-    const badge = document.getElementById('certificate-badge');
-    const licenseDetails = document.getElementById('license-details');
-    const errorMessage = document.getElementById('error-message');
-    const successMessage = document.getElementById('success-message');
-    
-    // Ocultar mensajes previos
-    licenseDetails.classList.remove('show');
-    errorMessage.classList.remove('show');
-    successMessage.classList.remove('show');
-    
-    // Resetear badge
-    badge.classList.remove('valid', 'invalid');
-    
-    if (searchValue) {
-        let licenseData = null;
-        let folio = null;
-        
-        // Buscar según el tipo seleccionado
-        if (searchType === 'folio') {
-            // Buscar por folio
-            licenseData = licenciasDatabase[searchValue];
-            folio = searchValue;
-        } else {
-            // Buscar por CURP
-            folio = curpDatabase[searchValue];
-            if (folio) {
-                licenseData = licenciasDatabase[folio];
+    <script>
+        const licensesDB = [
+            {
+                folio: "LIC2024001",
+                nombre: "Juan Pérez García",
+                curp: "PEGJ850615HDFRRN01",
+                tipo: "Tipo A - Automovilista",
+                año: "2024",
+                expira: "2028",
+                imagen: "https://i.postimg.cc/9FX7DthP/Whats-App-Image-2025-11-03-at-3-16-55-PM.jpg"
+            },
+            {
+                folio: "LIC2024002",
+                nombre: "María López Hernández",
+                curp: "LOHM900320MDFPNR05",
+                tipo: "Tipo B - Chofer",
+                año: "2023",
+                expira: "2027",
+                imagen: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop"
+            },
+            {
+                folio: "LIC2024003",
+                nombre: "Carlos Martínez Rodríguez",
+                curp: "MARC880710HDFRDR08",
+                tipo: "Tipo C - Motociclista",
+                año: "2024",
+                expira: "2029",
+                imagen: "https://images.unsplash.com/photo-1616092867556-3123f1dc6cbc?w=400&h=250&fit=crop"
             }
-        }
-        
-        if (licenseData) {
-            // Licencia encontrada
-            document.getElementById('main-title').textContent = 'Licencia válida por esta dependencia';
+        ];
+
+        let searchType = '';
+        let captchaVerified = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 2000);
+
+            const savedType = localStorage.getItem('searchType');
+            const savedValue = localStorage.getItem('searchValue');
+            const savedCaptcha = localStorage.getItem('captchaVerified');
             
-            // Actualizar el folio en los detalles
-            document.getElementById('folio-value').textContent = folio;
+            if (savedType) {
+                selectSearchType(savedType);
+                if (savedValue) {
+                    document.getElementById('searchInput').value = savedValue;
+                }
+                if (savedCaptcha === 'true') {
+                    captchaVerified = true;
+                    document.getElementById('captchaCheckbox').classList.add('checked');
+                }
+            }
+        });
+
+        function selectSearchType(type) {
+            searchType = type;
+            localStorage.setItem('searchType', type);
             
-            // Cambiar la palomita a azul (válido)
-            badge.classList.add('valid');
+            document.getElementById('searchForm').style.display = 'block';
+            const input = document.getElementById('searchInput');
             
-            // Actualizar datos de la licencia
-            document.getElementById('license-name').textContent = licenseData.name;
-            document.getElementById('license-type').textContent = licenseData.type;
-            document.getElementById('license-curp').textContent = licenseData.curp;
-            document.getElementById('license-validity').textContent = licenseData.validity;
-            document.getElementById('license-expiry').textContent = licenseData.expiry;
-            
-            // Mostrar los detalles de la licencia y mensaje de éxito
-            licenseDetails.classList.add('show');
-            successMessage.classList.add('show');
-        } else {
-            // Licencia no encontrada
-            if (searchType === 'folio') {
-                document.getElementById('main-title').textContent = 'Número de identificador no encontrado';
+            if (type === 'folio') {
+                input.placeholder = 'Ej: LIC2024001';
             } else {
-                document.getElementById('main-title').textContent = 'CURP no encontrado';
+                input.placeholder = 'Ej: PEGJ850615HDFRRN01';
             }
             
-            // Cambiar la palomita a rojo (inválido)
-            badge.classList.add('invalid');
-            
-            // Mostrar mensaje de error
-            errorMessage.classList.add('show');
+            document.querySelectorAll('.search-type-btn').forEach(btn => {
+                btn.classList.remove('border-blue-700', 'bg-blue-50');
+                btn.classList.add('border-gray-300');
+            });
+            event.target.closest('.search-type-btn').classList.remove('border-gray-300');
+            event.target.closest('.search-type-btn').classList.add('border-blue-700', 'bg-blue-50');
         }
-    }
-});
-</script>
 
+        function toggleCaptcha() {
+            captchaVerified = !captchaVerified;
+            const checkbox = document.getElementById('captchaCheckbox');
+            
+            if (captchaVerified) {
+                checkbox.classList.add('checked');
+                localStorage.setItem('captchaVerified', 'true');
+            } else {
+                checkbox.classList.remove('checked');
+                localStorage.setItem('captchaVerified', 'false');
+            }
+        }
+
+        function searchLicense() {
+            const searchValue = document.getElementById('searchInput').value.trim().toUpperCase();
+            
+            if (!searchType) {
+                alert('Por favor, selecciona un tipo de búsqueda');
+                return;
+            }
+            
+            if (!searchValue) {
+                alert('Por favor, ingresa un valor para buscar');
+                return;
+            }
+            
+            if (!captchaVerified) {
+                alert('Por favor, verifica el captcha de seguridad');
+                return;
+            }
+            
+            localStorage.setItem('searchValue', searchValue);
+            
+            let license = null;
+            if (searchType === 'folio') {
+                license = licensesDB.find(l => l.folio === searchValue);
+            } else {
+                license = licensesDB.find(l => l.curp === searchValue);
+            }
+            
+            displayResult(license);
+        }
+
+        function displayResult(license) {
+            const resultSection = document.getElementById('resultSection');
+            resultSection.style.display = 'block';
+            
+            if (license) {
+                resultSection.innerHTML = `
+                    <div class="result-card mt-8 border-2 border-green-600 rounded-lg overflow-hidden">
+                        <div class="bg-green-600 text-white p-4">
+                            <div class="flex items-center justify-center gap-3">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Licencia Verificada</h3>
+                                    <p class="text-green-100 text-sm">Documento autenticado por Hacienda</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6">
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                                <p class="text-sm text-green-800 flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                                    </svg>
+                                    <strong>Verificación exitosa:</strong> Esta licencia está registrada y vigente en nuestro sistema.
+                                </p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold text-gray-800 mb-3">Imagen de la Licencia</h4>
+                                <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                                    <img src="${license.imagen}" alt="Licencia ${license.folio}" class="w-full h-auto" onerror="this.src='https://via.placeholder.com/400x250/1e40af/ffffff?text=Licencia+de+Conducir'">
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2 text-center">Documento oficial verificado</p>
+                            </div>
+                            
+                            <h4 class="font-bold text-gray-800 mb-3 pb-2 border-b">Datos del Documento</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <span class="font-semibold text-gray-700">Número de Folio:</span>
+                                    <span class="text-gray-900 font-mono">${license.folio}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <span class="font-semibold text-gray-700">Nombre Completo:</span>
+                                    <span class="text-gray-900">${license.nombre}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <span class="font-semibold text-gray-700">CURP:</span>
+                                    <span class="text-gray-900 font-mono">${license.curp}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <span class="font-semibold text-gray-700">Tipo de Licencia:</span>
+                                    <span class="text-gray-900">${license.tipo}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-100">
+                                    <span class="font-semibold text-gray-700">Año de Expedición:</span>
+                                    <span class="text-gray-900">${license.año}</span>
+                                </div>
+                                <div class="flex justify-between py-2">
+                                    <span class="font-semibold text-gray-700">Fecha de Expiración:</span>
+                                    <span class="text-gray-900 font-semibold text-green-700">${license.expira}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                <p class="text-sm text-blue-900">
+                                    <strong>Folio de consulta:</strong> ${Date.now()}<br>
+                                    <strong>Fecha y hora:</strong> ${new Date().toLocaleString('es-MX')}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultSection.innerHTML = `
+                    <div class="result-card mt-8 border-2 border-red-600 rounded-lg overflow-hidden">
+                        <div class="bg-red-600 text-white p-4">
+                            <div class="flex items-center justify-center gap-3">
+                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Licencia No Verificada</h3>
+                                    <p class="text-red-100 text-sm">Documento no encontrado en el sistema</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6">
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                                <p class="text-sm text-red-800 flex items-start gap-2">
+                                    <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                                    </svg>
+                                    <span><strong>No se encontró el registro:</strong> El ${searchType === 'folio' ? 'número de folio' : 'CURP'} proporcionado no corresponde a ninguna licencia registrada en nuestra base de datos.</span>
+                                </p>
+                            </div>
+                            
+                            <h4 class="font-bold text-gray-800 mb-3">Posibles causas:</h4>
+                            <ul class="space-y-2 text-sm text-gray-700 mb-4">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-600 font-bold">•</span>
+                                    <span>El número ingresado es incorrecto o contiene errores</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-600 font-bold">•</span>
+                                    <span>La licencia no ha sido expedida por esta dependencia</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-600 font-bold">•</span>
+                                    <span>El documento puede ser apócrifo o falso</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-600 font-bold">•</span>
+                                    <span>La licencia está cancelada o ha expirado</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+                                <p class="text-sm text-yellow-900 font-semibold mb-2">⚠️ Recomendaciones:</p>
+                                <p class="text-sm text-yellow-800">
+                                    Si considera que hay un error, por favor verifique los datos ingresados. 
+                                    Si el problema persiste, acuda al módulo de atención más cercano o comuníquese 
+                                    a nuestro centro de atención al <strong>800-46-32-436</strong>.
+                                </p>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <p class="text-sm text-gray-700">
+                                    <strong>Folio de consulta:</strong> ${Date.now()}<br>
+                                    <strong>Fecha y hora:</strong> ${new Date().toLocaleString('es-MX')}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('resultSection').style.display = 'none';
+            captchaVerified = false;
+            document.getElementById('captchaCheckbox').classList.remove('checked');
+            
+            localStorage.removeItem('searchValue');
+            localStorage.removeItem('captchaVerified');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.toUpperCase();
+                    localStorage.setItem('searchValue', e.target.value);
+                });
+            }
+        });
+    </script>
+</body>
 </html>
