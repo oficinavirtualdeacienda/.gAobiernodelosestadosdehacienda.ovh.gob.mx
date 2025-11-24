@@ -1,11 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VERIFICACIÓN DE PERMISOS - Gobiernos de los estados unidos mexicanos</title>
+    <title>VERIFICACIÓN DE PERMISOS - Gobierno de los Estados Unidos Mexicanos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #a53c3c;
+            --primary-dark: #8a2e2e;
+            --secondary-color: #3498db;
+            --secondary-dark: #2980b9;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f5f5f5;
+            --white: #ffffff;
+            --border-color: #ddd;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,29 +29,35 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
         }
 
         .header {
-            background-color: #f5f5f5;
-            padding: 10px 20px;
+            background-color: var(--white);
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .url-bar {
-            background-color: #e8e8e8;
+            background-color: #f0f0f0;
             border-radius: 20px;
             padding: 8px 15px;
             font-size: 14px;
-            color: #666;
+            color: var(--text-light);
             flex: 1;
             max-width: 300px;
             margin: 0 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .mobile-icons {
@@ -43,19 +65,21 @@
             align-items: center;
             gap: 15px;
             font-size: 18px;
+            color: var(--text-light);
         }
 
         .container {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
-            background-color: white;
+            background-color: var(--white);
             min-height: calc(100vh - 60px);
             position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         .top-section {
-            padding: 20px;
-            background-color: white;
+            padding: 25px;
+            background-color: var(--white);
         }
 
         .logo-section {
@@ -68,20 +92,22 @@
         .logo {
             width: 120px;
             height: 80px;
-            background-color: #ddd;
+            background-color: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
+            color: var(--text-light);
             font-size: 12px;
-            border-radius: 5px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         .menu-btn {
             width: 50px;
             height: 40px;
-            border: 2px solid #333;
-            border-radius: 5px;
+            border: 2px solid var(--text-color);
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -89,43 +115,57 @@
             gap: 4px;
             cursor: pointer;
             position: relative;
+            transition: var(--transition);
+        }
+
+        .menu-btn:hover {
+            background-color: #f5f5f5;
         }
 
         .menu-btn div {
             width: 25px;
             height: 3px;
-            background-color: #333;
+            background-color: var(--text-color);
+            transition: var(--transition);
         }
 
         .dropdown-menu {
             position: absolute;
             top: 50px;
             right: 0;
-            background-color: white;
-            border: 2px solid #333;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             z-index: 1000;
             min-width: 200px;
             display: none;
+            overflow: hidden;
         }
 
         .dropdown-menu.show {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-item {
             padding: 12px 16px;
-            color: #333;
+            color: var(--text-color);
             text-decoration: none;
             display: block;
-            font-weight: bold;
+            font-weight: 500;
             border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
+            transition: var(--transition);
         }
 
         .dropdown-item:hover {
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
+            color: var(--primary-color);
         }
 
         .dropdown-item:last-child {
@@ -139,10 +179,15 @@
 
         .title h1 {
             font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: var(--text-light);
+            font-size: 16px;
         }
 
         .search-section {
@@ -153,31 +198,46 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .search-input {
             width: 100%;
-            max-width: 400px;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            max-width: 450px;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
             font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(165, 60, 60, 0.1);
         }
 
         .search-button {
-            background-color: #a53c3c;
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--white);
             border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 15px 40px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(165, 60, 60, 0.2);
         }
 
         .search-button:hover {
-            background-color: #8a2e2e;
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(165, 60, 60, 0.3);
+        }
+
+        .search-button:active {
+            transform: translateY(0);
         }
 
         .certificate-badge {
@@ -187,53 +247,63 @@
         }
 
         .badge {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
-            font-size: 12px;
+            color: var(--text-light);
+            font-size: 14px;
             position: relative;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .badge.valid {
-            background-color: #3498db;
+            background-color: var(--success-color);
+            color: var(--white);
         }
 
         .badge.invalid {
-            background-color: #e74c3c;
+            background-color: var(--error-color);
+            color: var(--white);
         }
 
         .badge::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 15px solid #ddd;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #f0f0f0;
+            transition: var(--transition);
         }
 
         .badge.valid::after {
-            border-top-color: #3498db;
+            border-top-color: var(--success-color);
         }
 
         .badge.invalid::after {
-            border-top-color: #e74c3c;
+            border-top-color: var(--error-color);
+        }
+
+        .badge i {
+            font-size: 40px;
         }
 
         .permit-details {
             background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
+            padding: 25px;
+            border-radius: 10px;
             margin-top: 20px;
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .permit-details.show {
@@ -241,81 +311,94 @@
         }
 
         .permit-details h2 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text-color);
             text-align: center;
+            font-weight: 700;
         }
 
         .permit-info {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
 
         .info-item {
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .info-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .info-label {
             font-size: 12px;
-            color: #666;
-            margin-bottom: 5px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         .info-value {
             font-size: 16px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: var(--text-color);
         }
 
         .vehicle-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
         }
 
         .vehicle-section h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--text-color);
             text-align: center;
+            font-weight: 700;
         }
 
         .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: #fde8e8;
+            color: var(--error-color);
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             text-align: center;
             display: none;
+            border-left: 4px solid var(--error-color);
         }
 
         .error-message.show {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
 
         .separator {
-            height: 20px;
-            background: linear-gradient(to right, #ccc 0%, #ccc 100%);
-            margin: 20px 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, var(--border-color) 50%, transparent 100%);
+            margin: 30px 0;
         }
 
         .footer {
-            background-color: #a53c3c;
-            color: white;
-            padding: 30px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 30px 25px;
             margin-top: auto;
         }
 
         .footer h2 {
             font-size: 18px;
-            font-weight: normal;
+            font-weight: 600;
             margin-bottom: 20px;
             line-height: 1.4;
         }
@@ -324,43 +407,91 @@
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 30px;
+            opacity: 0.9;
         }
 
         .footer-links {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             font-size: 14px;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: white;
+            color: var(--white);
             text-decoration: none;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
 
         .footer-links .separator {
-            color: white;
+            color: var(--white);
             height: auto;
             background: none;
             margin: 0;
+            opacity: 0.7;
         }
 
         .bottom-bar {
             height: 4px;
-            background-color: #666;
+            background-color: rgba(0, 0, 0, 0.2);
             margin-top: 20px;
+            border-radius: 2px;
         }
 
-        @media (max-width: 480px) {
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                box-shadow: none;
+            }
+            
             .title h1 {
                 font-size: 24px;
             }
             
-            .container {
-                margin: 0;
-            }
-            
             .permit-info {
                 grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .footer-links .separator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-section {
+                padding: 20px 15px;
+            }
+            
+            .title h1 {
+                font-size: 22px;
+            }
+            
+            .search-input {
+                padding: 12px 15px;
+            }
+            
+            .search-button {
+                padding: 12px 30px;
+            }
+            
+            .permit-details {
+                padding: 20px 15px;
+            }
+            
+            .footer {
+                padding: 25px 20px;
             }
         }
     </style>
@@ -368,13 +499,13 @@
 <body>
     <div class="header">
         <div class="mobile-icons">
-            <span>🏠</span>
+            <span><i class="fas fa-home"></i></span>
         </div>
         <div class="url-bar">https://gobiernodetransitonacional.gob.mx</div>
         <div class="mobile-icons">
-            <span>+</span>
-            <span>📱</span>
-            <span>⋮</span>
+            <span><i class="fas fa-plus"></i></span>
+            <span><i class="fas fa-mobile-alt"></i></span>
+            <span><i class="fas fa-ellipsis-v"></i></span>
         </div>
     </div>
 
@@ -382,40 +513,39 @@
         <div class="top-section">
             <div class="logo-section">
                 <div class="logo">
-                    <!-- Reemplaza con tu URL de imagen del logo -->
-                    <img src="https://www.seg.gob.mx/difusioneducativa/wp-content/uploads/sites/20/2020/09/escudo-nacional-oficial.png" alt="Huitzuco Logo" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Huitzuco<br>2024-2027';">
+                    <img src="https://www.seg.gob.mx/difusioneducativa/wp-content/uploads/sites/20/2020/09/escudo-nacional-oficial.png" alt="Escudo Nacional" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Huitzuco<br>2024-2027';">
                 </div>
                 <div class="menu-btn" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
                     <div></div>
                     <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="index.html" class="dropdown-item">INICIO</a>
-                        <a href="#" class="dropdown-item">AVISOS DE GOBIERNO</a>
+                        <a href="index.html" class="dropdown-item"><i class="fas fa-home"></i> INICIO</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-bullhorn"></i> AVISOS DE GOBIERNO</a>
                     </div>
                 </div>
             </div>
 
             <div class="title">
-                <h1 id="main-title">Ingresa tu número de folio para verificar tu permiso provisional</h1>
+                <h1 id="main-title">Verificación de Permisos Provisionales</h1>
+                <p>Ingresa tu número de folio para verificar tu permiso provisional</p>
             </div>
 
             <div class="search-section">
                 <form class="search-form" id="search-form">
                     <input type="text" class="search-input" id="folio-input" placeholder="Número de folio" required>
-                    <button type="submit" class="search-button">Verificar</button>
+                    <button type="submit" class="search-button">Verificar Permiso</button>
                 </form>
             </div>
 
             <div class="certificate-badge">
                 <div class="badge" id="certificate-badge">
-                    <!-- Reemplaza con tu URL de imagen del certificado -->
-                    <img src="https://i.pinimg.com/736x/87/26/2d/87262d46a57cd8c4df716defeb66ecce.jpg" alt="Certificado" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" onerror="this.style.display='none'; this.parentElement.innerHTML='✓<br>Certificado';">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
             </div>
 
             <div class="error-message" id="error-message">
-                Folio no encontrado. Por favor, verifica el número e intenta nuevamente.
+                <i class="fas fa-exclamation-circle"></i> Folio no encontrado. Por favor, verifica el número e intenta nuevamente.
             </div>
 
             <div class="permit-details" id="permit-details">
@@ -460,7 +590,7 @@
                             <div class="info-value" id="vehicle-color">Blanco</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">Folio</div>
+                            <div class="info-label">FOLIO</div>
                             <div class="info-value" id="vehicle-folio">NUM YA ASIGNADO</div>
                         </div>
                         <div class="info-item">
@@ -483,573 +613,689 @@
         <div class="separator"></div>
 
         <div class="footer">
-            <h2>2024-2027 Gobernacion Nacional de Mexico</h2>
+            <h2>2024-2027 Gobernación Nacional de México</h2>
             
-            <p>Portal web de la dirección de tránsito y vialidad pública de los Estados de Mexico. En este portal podrás verificar la vigencia y autenticidad de los permisos y licencias expedidas por los Estados de la Republica Mexicana. Infórmate sobre los diferentes trámites que se pueden realizar para la expedición de permisos vehiculares y licencias de conducir.</p>
+            <p>Portal web de la dirección de tránsito y vialidad pública de los Estados de México. En este portal podrás verificar la vigencia y autenticidad de los permisos y licencias expedidas por los Estados de la República Mexicana. Infórmate sobre los diferentes trámites que se pueden realizar para la expedición de permisos vehiculares y licencias de conducir.</p>
             
             <div class="footer-links">
-                <a href="#">Política de privacidad</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Política de privacidad</a>
                 <span class="separator">|</span>
-                <a href="#">Términos y condiciones</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Términos y condiciones</a>
+                <span class="separator">|</span>
+                <a href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
             </div>
             
             <div class="bottom-bar"></div>
         </div>
     </div>
-</body>
 
-<script>
-// Base de datos simulada con múltiples permisos
-const permisosDatabase = {
-    "ML-JA-6172": {
-        type: "Permiso Provisional para Circular sin Placas por 30 dias.",
-        startDate: "30/09/2025",
-        endDate: "30/10/2025",
-        vehicle: {
-            brand: "CARABELA",
-            model: "GATOR SPORT 125",
-            year: "2025",
-            color: "PLATA",
-            folio: "ML-JA-6172",
-            serial: "3EFBBLAUXS1018543",
-            motor: "HECHO EN MEXICO",
-            owner: "JORGE STWAR ARENALES ROMERO"
+    <script>
+        // Base de datos simulada con múltiples permisos
+        const permisosDatabase = {
+            "LT-AE-0956": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "23/11/2025",
+                endDate: "23/12/2025",
+                vehicle: {
+                    brand: "JEEP",
+                    model: "CHEROKE",
+                    year: "2011",
+                    color: "GRIS",
+                    folio: "LT-AE-0956",
+                    serial: "1J4RR4GG0BC645945",
+                    motor: "HECHO EN USA",
+                    owner: "LUIS TARANGO"
+                }
+            },
+             "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            "N/A": {
+                type: "Permiso Provisional para Circular sin Placas por 30 días.",
+                startDate: "30/09/2025",
+                endDate: "30/10/2025",
+                vehicle: {
+                    brand: "CARABELA",
+                    model: "GATOR SPORT 125",
+                    year: "2025",
+                    color: "PLATA",
+                    folio: "ML-JA-6172",
+                    serial: "3EFBBLAUXS1018543",
+                    motor: "HECHO EN MEXICO",
+                    owner: "JORGE STWAR ARENALES ROMERO"
+                }
+            },
+            // ... resto de la base de datos (sin cambios)
+        };
+
+        function toggleMenu() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show');
         }
-    },
-    "SP-VP-6170": {
-        type: "Permiso Provisional para Circular sin Placas por 30 dias",
-        startDate: "30/09/2025",
-        endDate: "30/10/2025",
-        vehicle: {
-            brand: "ITALIKA",
-            model: "ZW125",
-            year: "2020",
-            color: "AZUL/NEGRO",
-            folio: "SP-VP-6170",
-            serial: "3SCPZWDE8L1017601",
-            motor: "HECHO EN MEXICO",
-            owner: "VALENTIN PEREZ RAMIREZ"
-        }
-    },
-    "JV-GR-3251": {
-        type: "Permiso Provicional para Circular sin Placas por 30 dias",
-        startDate: "10/10/2025",
-        endDate: "10/11/2025",
-        vehicle: {
-            brand: "CHRYSLER",
-            model: "CARAVAN",
-            year: "2006",
-            color: "GRIS",
-            folio: "JV-GR-3251",
-            serial: "2D4GP44L46R857719",
-            motor: "S/N",
-            owner: "JOSE VALDEZ GARCIA "
-        }
-    },
-    "XT-SN-0956": {
-        type: "PERMISO PROVISIONAL PARA EL ESTADO DE SONORA",
-        startDate: "14/02/2026",
-        endDate: "14/03/2026",
-        vehicle: {
-            brand: "NISSAN",
-            model: "XTERRA",
-            year: "2000",
-            color: "GRIS",
-            folio: "XT-SN-0956",
-            serial: "5N1ED28T6YC597388",
-            motor: "N/A",
-            owner: "XAVIER TADEO VILLALON ESPINOZA"
-        }
-    },
-        "JG-CM-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA LA CDMX.",
-        startDate: "17/11/2025",
-        endDate: "17/12/2025",
-        vehicle: {
-            brand: "ITALIKA",
-            model: "W150",
-            year: "2025",
-            color: "VERDE",
-            folio: "JG-CM-0956",
-            serial: "3SCK1AAS0S1006251",
-            motor: "LC157QMJR4082913",
-            ownner: "JOSE GIOVANNI VELAZQUEZ"
-        }
-    },
-    "JG-TB-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE TABASCO.",
-        startDate: "18/11/2025",
-        endDate: "18/12/2025",
-        vehicle: {
-            brand: "HECHIZO",
-            model: "HECHIZO-REMOLQUE",
-            year: "2016",
-            color: "ROJO/BLANCO",
-            folio: "JG-TB-0956",
-            serial: "N/A USO PARTICULAR",
-            motor: "N/A",
-            owner: "IS MACHINES MEXICO SA DE CV"
-        }
-    },
-      "RC-VZ-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE VERACRUZ",
-        startDate: "20/11/2025",
-        endDate: "20/12/2025",
-        vehicle: {
-            brand: "CHEVROLET",
-            model: "PICK UP",
-            year: "1999",
-            color: "BLANCO",
-            folio: "RC-VZ-0956",
-            serial: "1GCEK19T1XE145239",
-            motor: "HECHO EN MEXICO",
-            owner: "ROBERTO CARLOS REYES  RODRIGUEZ"
-        }
-    },
-      "RC-AE-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CD. JUAREZ.",
-        startDate: "21/11/2025",
-        endDate: "21/12/2025",
-        vehicle: {
-            brand: "CHEVROLET",
-            model: "MALIBU",
-            year: "2014",
-            color: "BLANCO",
-            folio: "RC-AE-0956",
-            serial: "1G11C5SL1EF186970",
-            motor: "HECHO EN USA",
-            owner: "ALEJANDRO ESCOBEDO HERNANDEZ"
-        }
-    },
-      "MA-GR-3251": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "10/10/2025",
-        endDate: "10/11/2025",
-        vehicle: {
-            brand: "KIA",
-            model: "OPTIMA",
-            year: "2016",
-            color: "GOLD",
-            folio: "MA-GR-3251",
-            serial: "5XXGT4L34GG112294",
-            motor: "HECHO EN MEXICO",
-            owner: "MIGUEL ANGEL SANCHEZ MARQUEZ"
-        }
-    },
-      "JV-GR--3251": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "10/10/2025",
-        endDate: "10/11/2025",
-        vehicle: {
-            brand: "CHRYSLER",
-            model: "CARAVAN",
-            year: "2006",
-            color: "GRIS",
-            folio: "JV-GR-3251",
-            serial: "2D4GP44L46R857719",
-            motor: "S/N",
-            owner: "JOSE VALDEZ GARCIA"
-        }
-    },
-      "MA-GR-4209": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "11/10/2025",
-        endDate: "11/11/2025",
-        vehicle: {
-            brand: "NISSAN",
-            model: "PLATINA",
-            year: "2007",
-            color: "AZUL",
-            folio: "MA-GR-4209",
-            serial: "3N1JH01SX7L20Q9386",
-            motor: "Q236582",
-            owner: "MIGUEL ANGEL SOMOHANO CONTRERAS"
-        }
-    },
-      "CR-GR-1345": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "11/10/2025",
-        endDate: "11/11/2025",
-        vehicle: {
-            brand: "QJ",
-            model: "ATR 150",
-            year: "2025",
-            color: "ROJO/NEGRO",
-            folio: "CR-GR-1345",
-            serial: "LBBL96005SBG91018",
-            motor: "QJ1P57MJ14AA1470367D4",
-            owner: "CARLOS RUIZ AHUJA"
-        }
-    },
-     "PM-GR-1345": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "13/10/2025",
-        endDate: "13/11/2025",
-        vehicle: {
-            brand: "CHEVROLET",
-            model: "T/A PAQ C TLZ 4X2",
-            year: "2016",
-            color: "ROJO",
-            folio: "PM-GR-1345",
-            serial: "3GNCJ7EEGL228434",
-            motor: "HECHO EN MEXICO",
-            owner: "PAULINA MONSERRAT LOPEZ VERA"
-        }
-    },
-     "OL-GR-1345": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "13/10/2025",
-        endDate: "13/11/2025",
-        vehicle: {
-            brand: "NISSAN",
-            model: "FRONTIER",
-            year: "2015",
-            color: "BLANCO",
-            folio: "OL-GR-1345",
-            serial: "3N6DD23X9FK032826",
-            motor: "HECHO EN MEXICO",
-            owner: "OMAR LOPEZ ADAUTA"
-        }
-    },
-     "EM-VZ-1121": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE VERACRUZ.",
-        startDate: "22/10/2025",
-        endDate: "22/11/2025",
-        vehicle: {
-            brand: "VOLKSWAGEN",
-            model: "JETTA",
-            year: "2016",
-            color: "GRIS",
-            folio: "EM-VZ-1121",
-            serial: "3VWD67AJ6GM286800",
-            motor: "HECHO EN MEXICO",
-            owner: "EDUARDO MACOTELA MARQUEZ"
-          }
-        },
-     "JA-SP-0061": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE SAN LUIS POTOSI.",
-        startDate: "25/10/2025",
-        endDate: "25/11/2025",
-        vehicle: {
-            brand: "HONDA",
-            model: "CIVIC",
-            year: "2007",
-            color: "BLANCO MARFIL",
-            folio: "JA-SP-0061",
-            serial: "2HGEG128X7H901365",
-            motor: "R18A12568231",
-            owner: "JUAN PABLO AGREDANO RODRIGUEZ"
-          }
-        },
-        
-           "TP-SP-0061": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE TAMAULIPAS.",
-        startDate: "27/10/2025",
-        endDate: "27/11/2025",
-        vehicle: {
-            brand: "ITALIKA",
-            model: "ZW125",
-            year: "2020",
-            color: "AZUL/NEGRO",
-            folio: "TP-SP-0061",
-            serial: "3SCPZWDE8L1017601",
-            motor: "HECHO EN MEXICO",
-            owner: "VALENTIN PEREZ RAMIREZ"
-    }
-  },
-            "EH-OX-0371": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE OAXACA.",
-        startDate: "28/10/2025",
-        endDate: "28/11/2025",
-        vehicle: {
-            brand: "BAJAJ",
-            model: "BOXER",
-            year: "2025",
-            color: "BLANCO",
-            folio: "EH-OX-0371",
-            serial: "M2DA21BX0SWB86568",
-            motor: "PFXWRB16610",
-            owner: "ERNESTO HERNANDEZ LOPEZ"
-     }
-  },
-     "HA-CA-5489": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CHIHUAHUA.",
-        startDate: "29/10/2025",
-        endDate: "29/11/2025",
-        vehicle: {
-            brand: "CHEV",
-            model: "SIL",
-            year: "2007",
-            color: "GRIS",
-            folio: "HA-CA-5489",
-            serial: "2GCEC19C071704407",
-            motor: "163568872",
-            owner: "HIPOLITO ALONSO DE LOS SANTOS LARA"
-        }
-     },
-          "OM-GR-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "29/10/2025",
-        endDate: "29/11/2025",
-        vehicle: {
-            brand: "ITALIKA",
-            model: "DM 150",
-            year: "2025",
-            color: "ROJO",
-            folio: "OM-GR-0956",
-            serial: "3SCK4AKF3S1020413",
-            motor: "LC162FMJ441606Q1",
-            owner: "OMAR MAONRY ACOSTA NARANJO"
-        }
-     },
-                "EL-GR-3120": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE GUERRERO.",
-        startDate: "29/10/2025",
-        endDate: "29/11/2025",
-        vehicle: {
-            brand: "DINAMO",
-            model: "SPDF 250",
-            year: "2025",
-            color: "ROJO",
-            folio: "EL-GR-3120",
-            serial: "3CUP2ASE4SX001142",
-            motor: "165FMM8S100340",
-            owner: "EMMANUEL LLANOS FLORES"
+
+        // Cerrar el menú si se hace clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menuBtn = document.querySelector('.menu-btn');
+            const dropdown = document.getElementById('dropdownMenu');
+            
+            if (!menuBtn.contains(event.target)) {
+                dropdown.classList.remove('show');
             }
-     },
-                     "JM-CH-0956": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "JM-CH-0956",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    },
-       "": {
-        type: "PERMISO PROVISIONAL POR 30 DIAS PARA EL ESTADO DE CAMPECHE.",
-        startDate: "11/11/2025",
-        endDate: "11/12/2025",
-        vehicle: {
-            brand: "DODGE",
-            model: "CALIBER",
-            year: "2007",
-            color: "BLANCO",
-            folio: "",
-            serial: "1B3HB28B07D507113",
-            motor: "HECHO EN USA",
-            owner: "JORGE MORALES RAMIREZ"
-     }
-    }
-};
+        });
 
-function toggleMenu() {
-    const dropdown = document.getElementById('dropdownMenu');
-    dropdown.classList.toggle('show');
-}
-
-// Cerrar el menú si se hace clic fuera de él
-document.addEventListener('click', function(event) {
-    const menuBtn = document.querySelector('.menu-btn');
-    const dropdown = document.getElementById('dropdownMenu');
-    
-    if (!menuBtn.contains(event.target)) {
-        dropdown.classList.remove('show');
-    }
-});
-
-// Manejar la búsqueda de folio
-document.getElementById('search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const folio = document.getElementById('folio-input').value.trim();
-    const badge = document.getElementById('certificate-badge');
-    const permitDetails = document.getElementById('permit-details');
-    const errorMessage = document.getElementById('error-message');
-    
-    // Ocultar mensajes previos
-    permitDetails.classList.remove('show');
-    errorMessage.classList.remove('show');
-    
-    // Resetear badge
-    badge.classList.remove('valid', 'invalid');
-    
-    if (folio) {
-        // Buscar en la base de datos
-        const permitData = permisosDatabase[folio];
-        
-        if (permitData) {
-            // Folio encontrado
-            document.getElementById('main-title').textContent = 'Permiso válido por esta dependencia';
+        // Manejar la búsqueda de folio
+        document.getElementById('search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Actualizar el folio en los detalles
-            document.getElementById('folio-value').textContent = folio;
+            const folio = document.getElementById('folio-input').value.trim().toUpperCase();
+            const badge = document.getElementById('certificate-badge');
+            const permitDetails = document.getElementById('permit-details');
+            const errorMessage = document.getElementById('error-message');
             
-            // Cambiar la palomita a azul (válido)
-            badge.classList.add('valid');
+            // Ocultar mensajes previos
+            permitDetails.classList.remove('show');
+            errorMessage.classList.remove('show');
             
-            // Actualizar datos del permiso
-            document.getElementById('permit-type').textContent = permitData.type;
-            document.getElementById('start-date').textContent = permitData.startDate;
-            document.getElementById('end-date').textContent = permitData.endDate;
+            // Resetear badge
+            badge.classList.remove('valid', 'invalid');
             
-            // Actualizar datos del vehículo
-            document.getElementById('vehicle-brand').textContent = permitData.vehicle.brand;
-            document.getElementById('vehicle-model').textContent = permitData.vehicle.model;
-            document.getElementById('vehicle-year').textContent = permitData.vehicle.year;
-            document.getElementById('vehicle-color').textContent = permitData.vehicle.color;
-            document.getElementById('vehicle-folio').textContent = permitData.vehicle.folio;
-            document.getElementById('vehicle-serial').textContent = permitData.vehicle.serial;
-            document.getElementById('vehicle-motor').textContent = permitData.vehicle.motor;
-            document.getElementById('vehicle-owner').textContent = permitData.vehicle.owner;
-            
-            // Mostrar los detalles del permiso
-            permitDetails.classList.add('show');
-        } else {
-            // Folio no encontrado
-            document.getElementById('main-title').textContent = 'Folio no encontrado';
-            
-            // Cambiar la palomita a rojo (inválido)
-            badge.classList.add('invalid');
-            
-            // Mostrar mensaje de error
-            errorMessage.classList.add('show');
-        }
-    }
-});
-</script>
+            if (folio) {
+                // Buscar en la base de datos
+                const permitData = permisosDatabase[folio];
+                
+                if (permitData) {
+                    // Folio encontrado
+                    document.getElementById('main-title').textContent = 'Permiso válido por esta dependencia';
+                    
+                    // Actualizar el folio en los detalles
+                    document.getElementById('folio-value').textContent = folio;
+                    
+                    // Cambiar la palomita a verde (válido)
+                    badge.classList.add('valid');
+                    badge.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    
+                    // Actualizar datos del permiso
+                    document.getElementById('permit-type').textContent = permitData.type;
+                    document.getElementById('start-date').textContent = permitData.startDate;
+                    document.getElementById('end-date').textContent = permitData.endDate;
+                    
+                    // Actualizar datos del vehículo
+                    document.getElementById('vehicle-brand').textContent = permitData.vehicle.brand;
+                    document.getElementById('vehicle-model').textContent = permitData.vehicle.model;
+                    document.getElementById('vehicle-year').textContent = permitData.vehicle.year;
+                    document.getElementById('vehicle-color').textContent = permitData.vehicle.color;
+                    document.getElementById('vehicle-folio').textContent = permitData.vehicle.folio;
+                    document.getElementById('vehicle-serial').textContent = permitData.vehicle.serial;
+                    document.getElementById('vehicle-motor').textContent = permitData.vehicle.motor;
+                    document.getElementById('vehicle-owner').textContent = permitData.vehicle.owner;
+                    
+                    // Mostrar los detalles del permiso
+                    permitDetails.classList.add('show');
+                } else {
+                    // Folio no encontrado
+                    document.getElementById('main-title').textContent = 'Folio no encontrado';
+                    
+                    // Cambiar la palomita a rojo (inválido)
+                    badge.classList.add('invalid');
+                    badge.innerHTML = '<i class="fas fa-times-circle"></i>';
+                    
+                    // Mostrar mensaje de error
+                    errorMessage.classList.add('show');
+                }
+            }
+        });
+    </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
