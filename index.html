@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oficina Virtual de Hacienda | OVH</title>
+    <title>Portal de Servicios al Contribuyente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #C9A646;
+            --primary-dark: #A88A35;
+            --primary-light: #E5D5A3;
+            --secondary: #1a365d;
+            --accent: #DC143C;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,17 +27,20 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            overflow-x: hidden;
         }
 
         /* Header Superior */
         .top-header {
-            background: linear-gradient(135deg, #C9A646 0%, #C9A646 100%);
+            background: var(--secondary);
             color: white;
-            padding: 10px 0;
+            padding: 8px 0;
             font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .top-header .container {
@@ -39,15 +57,29 @@
             color: white;
             text-decoration: none;
             margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        .top-header a:hover {
+            color: var(--primary-light);
+        }
+
+        .social-icons a {
+            font-size: 16px;
         }
 
         /* Header Principal */
         .main-header {
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .main-header.scrolled {
+            padding: 5px 0;
         }
 
         .main-header .container {
@@ -62,40 +94,46 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .logo {
             height: 60px;
+            transition: var(--transition);
         }
 
         .site-title {
-            border-left: 3px solid #C9A646;
+            border-left: 3px solid var(--primary);
             padding-left: 15px;
         }
 
         .site-title h1 {
-            font-size: 20px;
-            color: #DC143C; /* Único elemento que queda en rojo */
-            font-weight: bold;
+            font-size: 22px;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 3px;
         }
 
         .site-title p {
-            font-size: 12px;
-            color: #666;
+            font-size: 13px;
+            color: var(--gray);
         }
 
         /* Navegación */
         nav {
-            background: #C9A646;
+            background: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
             flex-wrap: wrap;
         }
 
@@ -108,36 +146,107 @@
             text-decoration: none;
             padding: 15px 20px;
             display: block;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.15);
+        }
+
+        nav li:hover > .submenu {
+            display: block;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .submenu a {
+            color: var(--dark);
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .submenu a:hover {
+            background: var(--primary-light);
+            color: var(--dark);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--secondary);
+            cursor: pointer;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #C9A646 0%, #C9A646 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.3s;
         }
 
         .hero p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto;
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.5s;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.7s;
         }
 
         /* Servicios */
         .services {
-            padding: 60px 20px;
-            background: #f5f5f5;
+            padding: 80px 20px;
+            background: var(--light);
         }
 
         .container {
@@ -147,134 +256,249 @@
 
         .section-title {
             text-align: center;
-            font-size: 28px;
-            color: #C9A646; /* Cambiado a dorado */
-            margin-bottom: 40px;
-            font-weight: bold;
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto 30px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 18px;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .service-card {
             background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: var(--transition);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(201, 166, 70, 0.3); /* Cambiado a dorado */
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
         }
 
         .service-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #C9A646 0%, #C9A646 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 36px;
+            font-size: 32px;
             color: white;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(201, 166, 70, 0.3);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
         }
 
         .service-card h3 {
-            color: #C9A646; /* Cambiado a dorado */
-            margin-bottom: 10px;
+            color: var(--secondary);
+            margin-bottom: 15px;
             font-size: 20px;
+            font-weight: 600;
         }
 
         .service-card p {
-            color: #666;
-            font-size: 14px;
+            color: var(--gray);
+            font-size: 15px;
+            margin-bottom: 20px;
         }
 
         /* Botón */
         .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: all 0.3s;
+            transition: var(--transition);
             border: none;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 15px;
-            font-weight: bold;
-            box-shadow: 0 3px 8px rgba(212, 175, 55, 0.3);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(201, 166, 70, 0.3);
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #C9A646 0%, #C9A646 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(201, 166, 70, 0.4);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-dark);
         }
 
         /* Sección CONÓCENOS */
         .about-section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             background: white;
-            text-align: center;
-        }
-
-        .about-title {
-            color: #C9A646;
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .about-subtitle {
-            color: #000000;
-            font-size: 24px;
-            margin-bottom: 30px;
-            font-weight: bold;
+            position: relative;
         }
 
         .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-            font-weight: bold;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            color: var(--secondary);
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-text h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 16px;
             line-height: 1.8;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201, 166, 70, 0.2) 0%, rgba(26, 54, 93, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
         }
 
         /* Información */
         .info-section {
-            padding: 60px 20px;
-            background: white;
+            padding: 80px 20px;
+            background: var(--light);
         }
 
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 30px;
         }
 
         .info-card {
-            padding: 25px;
-            background: #f9f9f9;
-            border-left: 4px solid #C9A646;
-            border-radius: 5px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
         }
 
         .info-card h3 {
-            color: #C9A646; /* Cambiado a dorado */
-            margin-bottom: 15px;
-            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3 i {
+            color: var(--primary);
         }
 
         .info-card ul {
@@ -282,22 +506,106 @@
         }
 
         .info-card li {
-            padding: 8px 0;
-            color: #666;
+            padding: 10px 0;
+            color: var(--gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        .info-card li:before {
-            content: "▸ ";
-            color: #C9A646;
+        .info-card li::before {
+            content: "▸";
+            color: var(--primary);
             font-weight: bold;
-            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Noticias */
+        .news-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-date {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .news-title {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .news-excerpt {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .news-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .news-link:hover {
+            gap: 10px;
+            color: var(--primary-dark);
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
+            background: var(--secondary);
             color: white;
-            padding: 40px 20px 20px;
+            padding: 60px 20px 20px;
         }
 
         .footer-content {
@@ -305,40 +613,96 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-section h3 {
-            color: #C9A646;
-            margin-bottom: 15px;
-            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
         }
 
         .footer-section p, .footer-section a {
             color: #ccc;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.8;
             text-decoration: none;
+            transition: var(--transition);
         }
 
         .footer-section a:hover {
             color: white;
         }
 
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
-            border-top: 1px solid #444;
+            border-top: 1px solid rgba(255,255,255,0.1);
             color: #999;
-            font-size: 13px;
+            font-size: 14px;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-image {
+                order: -1;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-header .container {
                 flex-direction: column;
                 text-align: center;
+                gap: 15px;
             }
 
             .logo-section {
@@ -348,42 +712,69 @@
 
             .site-title {
                 border-left: none;
-                border-top: 3px solid #DC143C;
+                border-top: 3px solid var(--primary);
                 padding-left: 0;
                 padding-top: 10px;
             }
 
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
             nav ul {
                 flex-direction: column;
-                padding: 0;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
             }
 
             nav li {
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
 
+            .submenu {
+                position: static;
+                display: none;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .submenu.active {
+                display: block;
+            }
+
             .hero h2 {
-                font-size: 24px;
+                font-size: 32px;
             }
 
             .hero p {
-                font-size: 16px;
+                font-size: 18px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
             }
 
             .section-title {
-                font-size: 22px;
+                font-size: 28px;
             }
 
-            .services-grid {
+            .services-grid, .info-grid, .news-grid {
                 grid-template-columns: 1fr;
             }
 
-            .about-title {
-                font-size: 26px;
+            .about-text h2 {
+                font-size: 28px;
             }
 
-            .about-subtitle {
-                font-size: 20px;
+            .about-text h3 {
+                font-size: 22px;
             }
         }
 
@@ -391,6 +782,8 @@
             .top-header .container {
                 justify-content: center;
                 text-align: center;
+                flex-direction: column;
+                gap: 10px;
             }
 
             .logo {
@@ -398,15 +791,27 @@
             }
 
             .site-title h1 {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 26px;
+            }
+
+            .hero p {
                 font-size: 16px;
             }
 
-            .about-title {
-                font-size: 22px;
+            .about-text h2 {
+                font-size: 24px;
             }
 
-            .about-subtitle {
-                font-size: 18px;
+            .about-text h3 {
+                font-size: 20px;
             }
         }
 
@@ -419,34 +824,45 @@
             height: 100%;
             background: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: fadeOut 0.5s ease-in-out 1s forwards;
+            animation: fadeOut 0.5s ease-in-out 1.5s forwards;
         }
 
-        .golden-circle {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
-            border-radius: 50%;
-            animation: expandAndFade 1s ease-in-out forwards;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        .logo-animation {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s ease-in-out;
         }
 
-        @keyframes expandAndFade {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.5);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-            }
+        .loading-text {
+            font-size: 18px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            animation: loading 1.5s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
 
         @keyframes fadeOut {
@@ -459,20 +875,34 @@
                 visibility: hidden;
             }
         }
-        
-        /* Color negro para el texto del hero */
-        .hero h2,
-        .hero p {
-            color: #000000 !important;
-        }
     </style>
 </head>
 <body>
+    <!-- Animación de inicio -->
+    <div class="startup-animation">
+        <svg class="logo-animation" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#1a365d"/>
+            <circle cx="50" cy="35" r="15" fill="#C9A646"/>
+            <path d="M 30 50 Q 50 70 70 50" stroke="#C9A646" stroke-width="3" fill="none"/>
+            <text x="50" y="85" font-size="14" fill="white" text-anchor="middle" font-weight="bold">PSC</text>
+        </svg>
+        <div class="loading-text">Portal de Servicios al Contribuyente</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
     <!-- Header Superior -->
     <div class="top-header">
         <div class="container">
             <div>
-                <span>📞 800 715 4350 | ✉️ atencion@ovh.gob.mx</span>
+                <span><i class="fas fa-phone-alt"></i> 800 715 4350 | <i class="fas fa-envelope"></i> atencion@psc.gob.mx</span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>
@@ -482,47 +912,79 @@
         <div class="container">
             <div class="logo-section">
                 <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" fill="#DC143C"/>
-                    <circle cx="50" cy="35" r="15" fill="#D4AF37"/>
-                    <path d="M 30 50 Q 50 70 70 50" stroke="#D4AF37" stroke-width="3" fill="none"/>
-                    <text x="50" y="85" font-size="14" fill="white" text-anchor="middle" font-weight="bold">OVH</text>
+                    <rect width="100" height="100" fill="#1a365d"/>
+                    <circle cx="50" cy="35" r="15" fill="#C9A646"/>
+                    <path d="M 30 50 Q 50 70 70 50" stroke="#C9A646" stroke-width="3" fill="none"/>
+                    <text x="50" y="85" font-size="14" fill="white" text-anchor="middle" font-weight="bold">PSC</text>
                 </svg>
                 <div class="site-title">
-                    <h1>Oficina Virtual de Hacienda</h1>
-                    <p>Verifica tu permiso y Licencia</p>
+                    <h1>Portal de Servicios al Contribuyente</h1>
+                    <p>Simplificamos tus trámites fiscales</p>
                 </div>
             </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
+    <!-- Navegación -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+                <li>
+                    <a href="#"><i class="fas fa-car"></i> Vehículos <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#">Verificación Vehicular</a></li>
+                        <li><a href="#">Permisos Provisionales</a></li>
+                        <li><a href="#">Licencias de Conducir</a></li>
+                        <li><a href="#">Tarjetas de Circulación</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Impuestos</a></li>
+                <li><a href="#"><i class="fas fa-building"></i> Empresas</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> Información</a></li>
+                <li><a href="#"><i class="fas fa-headset"></i> Ayuda</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero -->
     <section class="hero">
-        <h2>Bienvenido a la Oficina Virtual de Hacienda</h2>
-        <p>Verifica el tramite de tu permiso provisional y tu licencia de conducir</p>
+        <div class="hero-content">
+            <h2>Portal de Servicios al Contribuyente</h2>
+            <p>Simplificamos tus trámites fiscales y vehiculares con una plataforma moderna, segura y eficiente</p>
+            <div class="hero-btns">
+                <a href="#" class="btn"><i class="fas fa-play-circle"></i> Ver Video Explicativo</a>
+                <a href="#" class="btn btn-outline"><i class="fas fa-user-check"></i> Acceder a Mi Cuenta</a>
+            </div>
+        </div>
     </section>
 
     <!-- Servicios -->
     <section class="services">
         <div class="container">
             <h2 class="section-title">Servicios en Línea</h2>
+            <p class="section-subtitle">Realiza tus trámites de manera rápida y segura desde cualquier dispositivo</p>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">📄</div>
-                    <h3>VERIFICACION VEHICULAR / PERMISOS PROVISIONALES</h3>
-                    <p>Consulta con tu numero de folio tu permiso provisional para circular</p>
-                    <button class="btn" onclick="window.location.href='permiso-provisional.html'">Ir a Consultar</button>
+                    <div class="service-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Validad de Autenticidad del Permiso</h3>
+                    <p>Consulta el estado de tu verificación vehicular de tu permiso provisional.</p>
+                    <button class="btn" onclick="window.location.href='permiso-provisional.html'">Consultar Ahora</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🎫</div>
-                    <h3>VERIFICACION VEHICULAR / LICENCIAS DE CONDUCIR</h3>
-                    <p>Consulta con tu numero de folio tu licencia de conducir</p>
-                    <button class="btn" onclick="window.location.href='licencia-conducir.html'">Ir a Consultar</button>
+                    <div class="service-icon"><i class="fas fa-id-card"></i></div>
+                    <h3> Verifica la Validacion de las Licencias de Conducir</h3>
+                    <p>Renueva, solicita o verifica el estado de tu licencia de conducir de forma completamente digital.</p>
+                    <button class="btn" onclick="window.location.href='licencia-conducir.html'">Gestionar Licencia</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🚗</div>
-                    <h3>CONTROL VEHICULAR / VALIDACION DE AUTENTICIDAD TARJETAS DE CIRCULACION</h3>
-                    <p>Verifica la autenticidad de tu tarjeta de circulación</p>
-                    <button class="btn" onclick="window.location.href='control-vehicular.html'">Ir a Consultar</button>
+                    <div class="service-icon"><i class="fas fa-car-side"></i></div>
+                    <h3>Validacion de las Tarjetas de Circulacion</h3>
+                    <p>Verifica y solicita las Tarjetas de Circulacion.</p>
+                    <button class="btn" onclick="window.location.href='control-vehicular.html'">Verificar Tarjeta de Circulacion</button>
                 </div>
             </div>
         </div>
@@ -531,12 +993,21 @@
     <!-- Sección CONÓCENOS -->
     <section class="about-section">
         <div class="container">
-            <h2 class="about-title">CONÓCENOS</h2>
-            <h3 class="about-subtitle">Oficina Virtual de Hacienda</h3>
             <div class="about-content">
-                <p>La Oficina Virtual de Hacienda es una plataforma digital innovadora diseñada para facilitar los trámites y servicios relacionados con la verificación vehicular, permisos provisionales y licencias de conducir.</p>
-                <p>Nuestro compromiso es ofrecer un servicio eficiente, transparente y accesible para todos los ciudadanos, optimizando los procesos y reduciendo los tiempos de espera.</p>
-                <p>Contamos con un equipo de profesionales dedicados a brindar la mejor atención y asesoría en cada uno de los servicios que ofrecemos.</p>
+                <div class="about-text">
+                    <h2>CONÓCENOS</h2>
+                    <h3>Portal de Servicios al Contribuyente</h3>
+                    <p>El Portal de Servicios al Contribuyente es una plataforma digital innovadora diseñada para facilitar y agilizar todos los trámites fiscales y vehiculares de los ciudadanos.</p>
+                    <p>Nuestro compromiso es ofrecer un servicio eficiente, transparente y accesible para todos, optimizando los procesos y reduciendo significativamente los tiempos de espera.</p>
+                    <p>Contamos con un equipo de profesionales altamente capacitados, dedicados a brindar la mejor atención y asesoría en cada uno de los servicios que ofrecemos.</p>
+                    <a href="#" class="btn"><i class="fas fa-info-circle"></i> Más Información</a>
+                </div>
+                <div class="about-image">
+                    <!-- Imagen representativa - en un caso real sería una imagen real -->
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg, #C9A646 0%, #1a365d 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:bold;">
+                        SERVICIOS AL CONTRIBUYENTE
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -545,33 +1016,83 @@
     <section class="info-section">
         <div class="container">
             <h2 class="section-title">Información Importante</h2>
+            <p class="section-subtitle">Mantente informado sobre los trámites, requisitos y servicios disponibles</p>
             <div class="info-grid">
                 <div class="info-card">
-                    <h3>Avisos</h3>
+                    <h3><i class="fas fa-bullhorn"></i> Avisos</h3>
                     <ul>
                         <li>Campaña de regularización vehicular 2025</li>
                         <li>Nuevas formas de pago disponibles</li>
                         <li>Descuentos por pronto pago</li>
                         <li>Actualización de normatividad</li>
+                        <li>Horarios especiales de atención</li>
                     </ul>
                 </div>
                 <div class="info-card">
-                    <h3>Requisitos</h3>
+                    <h3><i class="fas fa-clipboard-list"></i> Requisitos</h3>
                     <ul>
                         <li>Identificación oficial vigente</li>
                         <li>Comprobante de domicilio</li>
                         <li>RFC actualizado</li>
                         <li>Documentos del vehículo</li>
+                        <li>Comprobante de pago</li>
                     </ul>
                 </div>
                 <div class="info-card">
-                    <h3>Atención Ciudadana</h3>
+                    <h3><i class="fas fa-headset"></i> Atención Ciudadana</h3>
                     <ul>
                         <li>Horario: Lunes a Viernes 8:00 - 16:00</li>
                         <li>Teléfono: 800 715 4350</li>
                         <li>Chat en línea disponible</li>
                         <li>Soporte técnico 24/7</li>
+                        <li>Centros de atención presencial</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Noticias -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title">Noticias y Actualizaciones</h2>
+            <p class="section-subtitle">Mantente al día con las últimas novedades y cambios en los servicios</p>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">
+                        <!-- Imagen de noticia - en un caso real sería una imagen real -->
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, #C9A646 0%, #1a365d 100%);"></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">15 Mayo, 2025</span>
+                        <h3 class="news-title">Nueva Plataforma de Pago en Línea</h3>
+                        <p class="news-excerpt">Implementamos un sistema de pago más seguro y con más opciones para facilitar tus transacciones.</p>
+                        <a href="#" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <!-- Imagen de noticia - en un caso real sería una imagen real -->
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, #1a365d 0%, #C9A646 100%);"></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">10 Abril, 2025</span>
+                        <h3 class="news-title">Ampliación de Horarios de Atención</h3>
+                        <p class="news-excerpt">Extendemos nuestro horario de atención para brindarte un mejor servicio los fines de semana.</p>
+                        <a href="#" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image">
+                        <!-- Imagen de noticia - en un caso real sería una imagen real -->
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, #DC143C 0%, #C9A646 100%);"></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">28 Marzo, 2025</span>
+                        <h3 class="news-title">App Móvil Disponible</h3>
+                        <p class="news-excerpt">Descarga nuestra nueva aplicación móvil para realizar trámites desde tu smartphone.</p>
+                        <a href="#" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -581,40 +1102,104 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Oficina Virtual de Hacienda</h3>
+                <h3>Portal de Servicios al Contribuyente</h3>
                 <p>Secretaría de Finanzas y Planeación</p>
+                <p>Simplificamos tus trámites fiscales con tecnología de vanguardia y atención personalizada.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trámites</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Noticias</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                </ul>
             </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
-                <p>Teléfono: 800 715 4350<br>
-                Email: atencion@ovh.gob.mx<br>
-                Horario: Lunes a Viernes<br>
-                8:00 - 16:00 hrs</p>
+                <p><i class="fas fa-phone-alt"></i> Teléfono: 800 715 4350</p>
+                <p><i class="fas fa-envelope"></i> Email: atencion@psc.gob.mx</p>
+                <p><i class="fas fa-clock"></i> Horario: Lunes a Viernes</p>
+                <p>8:00 - 16:00 hrs</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 www.ovh.gob.mx Todos los derechos reservados.</p>
+            <p>© 2025 www.psc.gob.mx - Portal de Servicios al Contribuyente. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Crear elemento de animación
-            const animation = document.createElement('div');
-            animation.className = 'startup-animation';
-            
-            const circle = document.createElement('div');
-            circle.className = 'golden-circle';
-            
-            animation.appendChild(circle);
-            document.body.appendChild(animation);
-
-            // Remover la animación después de que termine
+            // Remover animación de inicio después de que termine
             setTimeout(() => {
-                if (document.body.contains(animation)) {
-                    document.body.removeChild(animation);
+                const animation = document.querySelector('.startup-animation');
+                if (animation) {
+                    animation.remove();
                 }
-            }, 1500);
+            }, 2000);
+
+            // Efecto de scroll en el header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Menú móvil
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('nav ul');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
+            }
+
+            // Submenús en móvil
+            const menuItemsWithSubmenu = document.querySelectorAll('nav li:has(.submenu) > a');
+            
+            menuItemsWithSubmenu.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const submenu = this.nextElementSibling;
+                        submenu.classList.toggle('active');
+                    }
+                });
+            });
+
+            // Animaciones al hacer scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.service-card, .info-card, .news-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Inicializar opacidad para elementos animados
+            const animatedElements = document.querySelectorAll('.service-card, .info-card, .news-card');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+
+            window.addEventListener('scroll', animateOnScroll);
+            // Ejecutar una vez al cargar la página
+            animateOnScroll();
         });
     </script>
 </body>
