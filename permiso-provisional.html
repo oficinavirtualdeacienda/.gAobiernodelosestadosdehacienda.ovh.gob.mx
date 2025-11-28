@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VERIFICACIÓN DE PERMISOS - Gobierno de los Estados Unidos Mexicanos</title>
+    <title>Portal de Servicios al Contribuyente - Validación de Autenticidad del Permiso</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #a53c3c;
-            --primary-dark: #8a2e2e;
-            --secondary-color: #3498db;
-            --secondary-dark: #2980b9;
-            --text-color: #333;
-            --text-light: #666;
-            --bg-color: #f5f5f5;
-            --white: #ffffff;
-            --border-color: #ddd;
-            --success-color: #27ae60;
-            --error-color: #e74c3c;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary: #C9A646;
+            --primary-dark: #A88A35;
+            --primary-light: #E5D5A3;
+            --secondary: #1a365d;
+            --accent: #DC143C;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --success: #28a745;
+            --error: #dc3545;
             --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         * {
@@ -30,304 +30,367 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
             min-height: 100vh;
-        }
-
-        .header {
-            background-color: var(--white);
-            padding: 12px 20px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            flex-direction: column;
         }
 
-        .url-bar {
-            background-color: #f0f0f0;
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 14px;
-            color: var(--text-light);
-            flex: 1;
-            max-width: 300px;
-            margin: 0 20px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        /* Header */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .mobile-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 18px;
-            color: var(--text-light);
-        }
-
-        .container {
-            max-width: 700px;
+        .main-header .container {
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: var(--white);
-            min-height: calc(100vh - 60px);
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .top-section {
-            padding: 25px;
-            background-color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            gap: 15px;
         }
 
         .logo {
-            width: 120px;
-            height: 80px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-size: 12px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+            height: 60px;
         }
 
-        .menu-btn {
-            width: 50px;
-            height: 40px;
-            border: 2px solid var(--text-color);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            cursor: pointer;
-            position: relative;
-            transition: var(--transition);
+        .site-title {
+            border-left: 3px solid var(--primary);
+            padding-left: 15px;
         }
 
-        .menu-btn:hover {
-            background-color: #f5f5f5;
-        }
-
-        .menu-btn div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            transition: var(--transition);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background-color: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            min-width: 200px;
-            display: none;
-            overflow: hidden;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            color: var(--text-color);
-            text-decoration: none;
-            display: block;
-            font-weight: 500;
-            border-bottom: 1px solid #eee;
-            transition: var(--transition);
-        }
-
-        .dropdown-item:hover {
-            background-color: #f9f9f9;
-            color: var(--primary-color);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title h1 {
-            font-size: 28px;
+        .site-title h1 {
+            font-size: 22px;
+            color: var(--secondary);
             font-weight: 700;
-            color: var(--text-color);
-            line-height: 1.3;
-            margin-bottom: 10px;
+            margin-bottom: 3px;
         }
 
-        .title p {
-            color: var(--text-light);
-            font-size: 16px;
+        .site-title p {
+            font-size: 13px;
+            color: var(--gray);
         }
 
-        .search-section {
-            margin-bottom: 30px;
+        /* Navegación */
+        nav {
+            background: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .search-form {
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            list-style: none;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .search-input {
-            width: 100%;
-            max-width: 450px;
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
             padding: 15px 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 16px;
+            display: block;
             transition: var(--transition);
+            font-weight: 500;
         }
 
-        .search-input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(165, 60, 60, 0.1);
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.15);
         }
 
-        .search-button {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 15px 40px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 6px rgba(165, 60, 60, 0.2);
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px 0;
         }
 
-        .search-button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(165, 60, 60, 0.3);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .search-button:active {
-            transform: translateY(0);
-        }
-
-        .certificate-badge {
-            display: flex;
-            justify-content: center;
+        .page-header {
+            text-align: center;
             margin-bottom: 40px;
         }
 
+        .page-title {
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Card de verificación */
+        .verification-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* Formulario */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(201, 166, 70, 0.2);
+        }
+
+        /* Captcha */
+        .captcha-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e1e5e9;
+        }
+
+        .captcha-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .captcha-title {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .captcha-refresh {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .captcha-refresh:hover {
+            color: var(--primary-dark);
+        }
+
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .captcha-image {
+            flex: 1;
+            height: 60px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--secondary);
+            border: 1px solid #e1e5e9;
+            user-select: none;
+        }
+
+        .captcha-input {
+            flex: 1;
+        }
+
+        /* Botón */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(201, 166, 70, 0.3);
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(201, 166, 70, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Resultados */
+        .result-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .status-badge {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
         .badge {
-            width: 100px;
-            height: 100px;
-            background-color: #f0f0f0;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
-            font-size: 14px;
-            position: relative;
+            font-size: 50px;
             box-shadow: var(--shadow);
-            transition: var(--transition);
+            position: relative;
         }
 
         .badge.valid {
-            background-color: var(--success-color);
-            color: var(--white);
+            background: var(--success);
+            color: white;
         }
 
         .badge.invalid {
-            background-color: var(--error-color);
-            color: var(--white);
+            background: var(--error);
+            color: white;
         }
 
-        .badge::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid #f0f0f0;
-            transition: var(--transition);
-        }
-
-        .badge.valid::after {
-            border-top-color: var(--success-color);
-        }
-
-        .badge.invalid::after {
-            border-top-color: var(--error-color);
-        }
-
-        .badge i {
-            font-size: 40px;
+        .result-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--secondary);
         }
 
         .permit-details {
-            background-color: #f9f9f9;
-            padding: 25px;
+            background: #f8f9fa;
             border-radius: 10px;
+            padding: 25px;
             margin-top: 20px;
-            display: none;
-            animation: fadeIn 0.5s ease;
         }
 
-        .permit-details.show {
-            display: block;
-        }
-
-        .permit-details h2 {
-            font-size: 22px;
+        .permit-details h3 {
+            font-size: 20px;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--secondary);
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .permit-info {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
-            margin-top: 15px;
         }
 
         .info-item {
             padding: 15px;
-            background-color: var(--white);
+            background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
@@ -340,7 +403,7 @@
 
         .info-label {
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--gray);
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -350,32 +413,32 @@
         .info-value {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-color);
+            color: var(--dark);
         }
 
         .vehicle-section {
             margin-top: 25px;
             padding-top: 25px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid #e1e5e9;
         }
 
         .vehicle-section h3 {
             font-size: 20px;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--secondary);
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .error-message {
-            background-color: #fde8e8;
-            color: var(--error-color);
+            background: #f8d7da;
+            color: var(--error);
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
             text-align: center;
             display: none;
-            border-left: 4px solid var(--error-color);
+            border-left: 4px solid var(--error);
         }
 
         .error-message.show {
@@ -383,271 +446,312 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .separator {
-            height: 1px;
-            background: linear-gradient(to right, transparent 0%, var(--border-color) 50%, transparent 100%);
-            margin: 30px 0;
-        }
-
-        .footer {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 30px 25px;
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 20px 20px;
             margin-top: auto;
         }
 
-        .footer h2 {
-            font-size: 18px;
-            font-weight: 600;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
             margin-bottom: 20px;
-            line-height: 1.4;
+            font-size: 20px;
+            font-weight: 600;
         }
 
-        .footer p {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 15px;
-            font-size: 14px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--white);
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            font-size: 15px;
+            line-height: 1.8;
             text-decoration: none;
-            opacity: 0.9;
             transition: var(--transition);
         }
 
-        .footer-links a:hover {
-            opacity: 1;
-            text-decoration: underline;
+        .footer-section a:hover {
+            color: white;
         }
 
-        .footer-links .separator {
-            color: var(--white);
-            height: auto;
-            background: none;
-            margin: 0;
-            opacity: 0.7;
+        .footer-links {
+            list-style: none;
         }
 
-        .bottom-bar {
-            height: 4px;
-            background-color: rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
-            border-radius: 2px;
+        .footer-links li {
+            margin-bottom: 10px;
         }
 
-        /* Responsive adjustments */
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                margin: 0;
-                box-shadow: none;
+            .main-header .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
-            
-            .title h1 {
-                font-size: 24px;
-            }
-            
-            .permit-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
+
+            .logo-section {
                 flex-direction: column;
                 gap: 10px;
             }
-            
-            .footer-links .separator {
-                display: none;
+
+            .site-title {
+                border-left: none;
+                border-top: 3px solid var(--primary);
+                padding-left: 0;
+                padding-top: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .permit-info {
+                grid-template-columns: 1fr;
+            }
+
+            .captcha-box {
+                flex-direction: column;
+            }
+
+            .captcha-image {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .top-section {
-                padding: 20px 15px;
+            .page-title {
+                font-size: 24px;
             }
-            
-            .title h1 {
-                font-size: 22px;
+
+            .card-body {
+                padding: 20px;
             }
-            
-            .search-input {
-                padding: 12px 15px;
-            }
-            
-            .search-button {
-                padding: 12px 30px;
-            }
-            
-            .permit-details {
-                padding: 20px 15px;
-            }
-            
-            .footer {
-                padding: 25px 20px;
+
+            .badge {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="mobile-icons">
-            <span><i class="fas fa-home"></i></span>
-        </div>
-        <div class="url-bar">https://gobiernodetransitonacional.gob.mx</div>
-        <div class="mobile-icons">
-            <span><i class="fas fa-plus"></i></span>
-            <span><i class="fas fa-mobile-alt"></i></span>
-            <span><i class="fas fa-ellipsis-v"></i></span>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="top-section">
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
             <div class="logo-section">
-                <div class="logo">
-                    <img src="https://www.seg.gob.mx/difusioneducativa/wp-content/uploads/sites/20/2020/09/escudo-nacional-oficial.png" alt="Escudo Nacional" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Huitzuco<br>2024-2027';">
-                </div>
-                <div class="menu-btn" onclick="toggleMenu()">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="index.html" class="dropdown-item"><i class="fas fa-home"></i> INICIO</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-bullhorn"></i> AVISOS DE GOBIERNO</a>
-                    </div>
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#1a365d"/>
+                    <circle cx="50" cy="35" r="15" fill="#C9A646"/>
+                    <path d="M 30 50 Q 50 70 70 50" stroke="#C9A646" stroke-width="3" fill="none"/>
+                    <text x="50" y="85" font-size="14" fill="white" text-anchor="middle" font-weight="bold">PSC</text>
+                </svg>
+                <div class="site-title">
+                    <h1>Portal de Servicios al Contribuyente</h1>
+                    <p>Simplificamos tus trámites fiscales</p>
                 </div>
             </div>
+        </div>
+    </header>
 
-            <div class="title">
-                <h1 id="main-title">Verificación de Permisos Provisionales</h1>
-                <p>Ingresa tu número de folio para verificar tu permiso provisional</p>
+    <!-- Navegación -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#" class="active"><i class="fas fa-car"></i> Vehículos</a></li>
+                <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Impuestos</a></li>
+                <li><a href="#"><i class="fas fa-building"></i> Empresas</a></li>
+                <li><a href="#"><i class="fas fa-info-circle"></i> Información</a></li>
+                <li><a href="#"><i class="fas fa-headset"></i> Ayuda</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Validación de Autenticidad del Permiso</h1>
+                <p class="page-subtitle">Verifica la autenticidad y vigencia de tu permiso provisional ingresando el número de folio</p>
             </div>
 
-            <div class="search-section">
-                <form class="search-form" id="search-form">
-                    <input type="text" class="search-input" id="folio-input" placeholder="Número de folio" required>
-                    <button type="submit" class="search-button">Verificar Permiso</button>
-                </form>
-            </div>
-
-            <div class="certificate-badge">
-                <div class="badge" id="certificate-badge">
-                    <i class="fas fa-shield-alt"></i>
+            <div class="verification-card">
+                <div class="card-header">
+                    <h2>Verificación de Permisos Provisionales</h2>
+                    <p>Ingresa tu número de folio para verificar tu permiso provisional</p>
                 </div>
-            </div>
 
-            <div class="error-message" id="error-message">
-                <i class="fas fa-exclamation-circle"></i> Folio no encontrado. Por favor, verifica el número e intenta nuevamente.
-            </div>
+                <div class="card-body">
+                    <form id="search-form">
+                        <div class="form-group">
+                            <label for="folio-input" class="form-label">Número de Folio</label>
+                            <input type="text" class="form-input" id="folio-input" placeholder="Ingresa el número de folio" required>
+                        </div>
 
-            <div class="permit-details" id="permit-details">
-                <h2>Permiso válido por esta dependencia</h2>
-                
-                <div class="permit-info">
-                    <div class="info-item">
-                        <div class="info-label">FOLIO</div>
-                        <div class="info-value" id="folio-value">ABC123456</div>
+                        <div class="captcha-container">
+                            <div class="captcha-header">
+                                <span class="captcha-title">Verificación de seguridad</span>
+                                <button type="button" class="captcha-refresh" id="refresh-captcha">
+                                    <i class="fas fa-redo"></i> Actualizar
+                                </button>
+                            </div>
+                            <div class="captcha-box">
+                                <div class="captcha-image" id="captcha-text">A3B7K9</div>
+                                <input type="text" class="form-input captcha-input" id="captcha-input" placeholder="Ingresa el código" required>
+                            </div>
+                            <p style="font-size: 14px; color: var(--gray);">Por favor, ingresa el código que aparece arriba para verificar que no eres un robot.</p>
+                        </div>
+
+                        <button type="submit" class="btn">
+                            <i class="fas fa-search"></i> Verificar Permiso
+                        </button>
+                    </form>
+
+                    <div class="error-message" id="error-message">
+                        <i class="fas fa-exclamation-circle"></i> Folio no encontrado. Por favor, verifica el número e intenta nuevamente.
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">TIPO DE PERMISO</div>
-                        <div class="info-value" id="permit-type">Permiso vehicular</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">FECHA DE INGRESO</div>
-                        <div class="info-value" id="start-date">15/03/2024</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">FECHA DE TERMINACIÓN</div>
-                        <div class="info-value" id="end-date">15/03/2025</div>
-                    </div>
-                </div>
-                
-                <div class="vehicle-section">
-                    <h3>Datos del Vehículo</h3>
-                    <div class="permit-info">
-                        <div class="info-item">
-                            <div class="info-label">MARCA</div>
-                            <div class="info-value" id="vehicle-brand">Nissan</div>
+
+                    <div class="result-section" id="result-section">
+                        <div class="status-badge">
+                            <div class="badge valid" id="status-badge">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-label">MODELO</div>
-                            <div class="info-value" id="vehicle-model">Versa</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">AÑO</div>
-                            <div class="info-value" id="vehicle-year">2022</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">COLOR</div>
-                            <div class="info-value" id="vehicle-color">Blanco</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">FOLIO</div>
-                            <div class="info-value" id="vehicle-folio">NUM YA ASIGNADO</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">NÚMERO DE SERIE</div>
-                            <div class="info-value" id="vehicle-serial">1N4BL24VXVC123456</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">NÚMERO DE MOTOR</div>
-                            <div class="info-value" id="vehicle-motor">1N4BL24VXVC123456</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">PROPIETARIO</div>
-                            <div class="info-value" id="vehicle-owner">Juan Pérez Hernández</div>
+
+                        <h2 class="result-title" id="result-title">Permiso válido por esta dependencia</h2>
+
+                        <div class="permit-details">
+                            <h3>Información del Permiso</h3>
+                            <div class="permit-info">
+                                <div class="info-item">
+                                    <div class="info-label">FOLIO</div>
+                                    <div class="info-value" id="folio-value">ABC123456</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">TIPO DE PERMISO</div>
+                                    <div class="info-value" id="permit-type">Permiso vehicular</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">FECHA DE INGRESO</div>
+                                    <div class="info-value" id="start-date">15/03/2024</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">FECHA DE TERMINACIÓN</div>
+                                    <div class="info-value" id="end-date">15/03/2025</div>
+                                </div>
+                            </div>
+                            
+                            <div class="vehicle-section">
+                                <h3>Datos del Vehículo</h3>
+                                <div class="permit-info">
+                                    <div class="info-item">
+                                        <div class="info-label">MARCA</div>
+                                        <div class="info-value" id="vehicle-brand">Nissan</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">MODELO</div>
+                                        <div class="info-value" id="vehicle-model">Versa</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">AÑO</div>
+                                        <div class="info-value" id="vehicle-year">2022</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">COLOR</div>
+                                        <div class="info-value" id="vehicle-color">Blanco</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">FOLIO</div>
+                                        <div class="info-value" id="vehicle-folio">NUM YA ASIGNADO</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">NÚMERO DE SERIE</div>
+                                        <div class="info-value" id="vehicle-serial">1N4BL24VXVC123456</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">NÚMERO DE MOTOR</div>
+                                        <div class="info-value" id="vehicle-motor">1N4BL24VXVC123456</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">PROPIETARIO</div>
+                                        <div class="info-value" id="vehicle-owner">Juan Pérez Hernández</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <div class="separator"></div>
-
-        <div class="footer">
-            <h2>2024-2027 Gobernación Nacional de México</h2>
-            
-            <p>Portal web de la dirección de tránsito y vialidad pública de los Estados de México. En este portal podrás verificar la vigencia y autenticidad de los permisos y licencias expedidas por los Estados de la República Mexicana. Infórmate sobre los diferentes trámites que se pueden realizar para la expedición de permisos vehiculares y licencias de conducir.</p>
-            
-            <div class="footer-links">
-                <a href="#"><i class="fas fa-shield-alt"></i> Política de privacidad</a>
-                <span class="separator">|</span>
-                <a href="#"><i class="fas fa-file-contract"></i> Términos y condiciones</a>
-                <span class="separator">|</span>
-                <a href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Portal de Servicios al Contribuyente</h3>
+                <p>Secretaría de Finanzas y Planeación</p>
+                <p>Simplificamos tus trámites fiscales con tecnología de vanguardia y atención personalizada.</p>
             </div>
-            
-            <div class="bottom-bar"></div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trámites</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Noticias</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-phone-alt"></i> Teléfono: 800 715 4350</p>
+                <p><i class="fas fa-envelope"></i> Email: atencion@psc.gob.mx</p>
+                <p><i class="fas fa-clock"></i> Horario: Lunes a Viernes</p>
+                <p>8:00 - 16:00 hrs</p>
+            </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p>© 2025 www.psc.gob.mx - Portal de Servicios al Contribuyente. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script>
         // Base de datos simulada con múltiples permisos
         const permisosDatabase = {
-            "LT-AE-0956": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "23/11/2025",
-                endDate: "23/12/2025",
-                vehicle: {
-                    brand: "JEEP",
-                    model: "CHEROKE",
-                    year: "2011",
-                    color: "GRIS",
-                    folio: "LT-AE-0956",
-                    serial: "1J4RR4GG0BC645945",
-                    motor: "HECHO EN USA",
-                    owner: "LUIS TARANGO"
-                }
-            },
-             "N/A": {
+            "ML-JA-6172": {
                 type: "Permiso Provisional para Circular sin Placas por 30 días.",
                 startDate: "30/09/2025",
                 endDate: "30/10/2025",
@@ -662,577 +766,42 @@
                     owner: "JORGE STWAR ARENALES ROMERO"
                 }
             },
-            "N/A": {
+            "ABC123456": {
                 type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
+                startDate: "15/03/2024",
+                endDate: "15/03/2025",
                 vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
+                    brand: "Nissan",
+                    model: "Versa",
+                    year: "2022",
+                    color: "Blanco",
+                    folio: "NUM YA ASIGNADO",
+                    serial: "1N4BL24VXVC123456",
+                    motor: "1N4BL24VXVC123456",
+                    owner: "Juan Pérez Hernández"
                 }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            "N/A": {
-                type: "Permiso Provisional para Circular sin Placas por 30 días.",
-                startDate: "30/09/2025",
-                endDate: "30/10/2025",
-                vehicle: {
-                    brand: "CARABELA",
-                    model: "GATOR SPORT 125",
-                    year: "2025",
-                    color: "PLATA",
-                    folio: "ML-JA-6172",
-                    serial: "3EFBBLAUXS1018543",
-                    motor: "HECHO EN MEXICO",
-                    owner: "JORGE STWAR ARENALES ROMERO"
-                }
-            },
-            // ... resto de la base de datos (sin cambios)
+            }
         };
 
-        function toggleMenu() {
-            const dropdown = document.getElementById('dropdownMenu');
-            dropdown.classList.toggle('show');
+        // Generar CAPTCHA
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+            let captcha = '';
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return captcha;
         }
 
-        // Cerrar el menú si se hace clic fuera de él
-        document.addEventListener('click', function(event) {
-            const menuBtn = document.querySelector('.menu-btn');
-            const dropdown = document.getElementById('dropdownMenu');
-            
-            if (!menuBtn.contains(event.target)) {
-                dropdown.classList.remove('show');
-            }
+        // Inicializar CAPTCHA
+        let currentCaptcha = generateCaptcha();
+        document.getElementById('captcha-text').textContent = currentCaptcha;
+
+        // Actualizar CAPTCHA
+        document.getElementById('refresh-captcha').addEventListener('click', function() {
+            currentCaptcha = generateCaptcha();
+            document.getElementById('captcha-text').textContent = currentCaptcha;
+            document.getElementById('captcha-input').value = '';
         });
 
         // Manejar la búsqueda de folio
@@ -1240,16 +809,25 @@
             e.preventDefault();
             
             const folio = document.getElementById('folio-input').value.trim().toUpperCase();
-            const badge = document.getElementById('certificate-badge');
-            const permitDetails = document.getElementById('permit-details');
+            const captchaInput = document.getElementById('captcha-input').value.trim();
+            const resultSection = document.getElementById('result-section');
             const errorMessage = document.getElementById('error-message');
+            const statusBadge = document.getElementById('status-badge');
+            const resultTitle = document.getElementById('result-title');
             
             // Ocultar mensajes previos
-            permitDetails.classList.remove('show');
+            resultSection.classList.remove('show');
             errorMessage.classList.remove('show');
             
-            // Resetear badge
-            badge.classList.remove('valid', 'invalid');
+            // Verificar CAPTCHA
+            if (captchaInput !== currentCaptcha) {
+                errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> El código de verificación es incorrecto. Inténtalo de nuevo.';
+                errorMessage.classList.add('show');
+                currentCaptcha = generateCaptcha();
+                document.getElementById('captcha-text').textContent = currentCaptcha;
+                document.getElementById('captcha-input').value = '';
+                return;
+            }
             
             if (folio) {
                 // Buscar en la base de datos
@@ -1257,14 +835,14 @@
                 
                 if (permitData) {
                     // Folio encontrado
-                    document.getElementById('main-title').textContent = 'Permiso válido por esta dependencia';
+                    resultTitle.textContent = 'Permiso válido por esta dependencia';
                     
                     // Actualizar el folio en los detalles
                     document.getElementById('folio-value').textContent = folio;
                     
                     // Cambiar la palomita a verde (válido)
-                    badge.classList.add('valid');
-                    badge.innerHTML = '<i class="fas fa-check-circle"></i>';
+                    statusBadge.className = 'badge valid';
+                    statusBadge.innerHTML = '<i class="fas fa-check-circle"></i>';
                     
                     // Actualizar datos del permiso
                     document.getElementById('permit-type').textContent = permitData.type;
@@ -1282,17 +860,28 @@
                     document.getElementById('vehicle-owner').textContent = permitData.vehicle.owner;
                     
                     // Mostrar los detalles del permiso
-                    permitDetails.classList.add('show');
+                    resultSection.classList.add('show');
+                    
+                    // Generar nuevo CAPTCHA
+                    currentCaptcha = generateCaptcha();
+                    document.getElementById('captcha-text').textContent = currentCaptcha;
+                    document.getElementById('captcha-input').value = '';
                 } else {
                     // Folio no encontrado
-                    document.getElementById('main-title').textContent = 'Folio no encontrado';
+                    resultTitle.textContent = 'Folio no encontrado';
                     
                     // Cambiar la palomita a rojo (inválido)
-                    badge.classList.add('invalid');
-                    badge.innerHTML = '<i class="fas fa-times-circle"></i>';
+                    statusBadge.className = 'badge invalid';
+                    statusBadge.innerHTML = '<i class="fas fa-times-circle"></i>';
                     
                     // Mostrar mensaje de error
+                    errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Folio no encontrado. Por favor, verifica el número e intenta nuevamente.';
                     errorMessage.classList.add('show');
+                    
+                    // Generar nuevo CAPTCHA
+                    currentCaptcha = generateCaptcha();
+                    document.getElementById('captcha-text').textContent = currentCaptcha;
+                    document.getElementById('captcha-input').value = '';
                 }
             }
         });
